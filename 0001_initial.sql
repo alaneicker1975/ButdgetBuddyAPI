@@ -7,24 +7,24 @@ CREATE TABLE IF NOT EXISTS user_account (
 
 CREATE TABLE IF NOT EXISTS expense (
   expense_id SERIAL PRIMARY KEY,
-	name VARCHAR(50) NOT NULL
+  name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS expense_group (
   expense_group_id SERIAL PRIMARY KEY,
   user_account_id UUID NOT NULL,
-	start_date DATE NOT NULL,
-	end_date DATE NOT NULL,
-	total_budget INT NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  total_budget INT NOT NULL,
 	CONSTRAINT user_account_id
-    FOREIGN KEY(user_account_id) 
-	 	REFERENCES user_account(user_account_id)
+    FOREIGN KEY(user_account_id)
+    REFERENCES user_account(user_account_id)
 );
 
 CREATE TABLE IF NOT EXISTS expense_group_expense (
   expense_id INT REFERENCES expense(expense_id),
-	expense_group_id INT REFERENCES expense_group(expense_group_id),
-	balance DECIMAL NOT NULL,
+  expense_group_id INT REFERENCES expense_group(expense_group_id),
+  balance DECIMAL NOT NULL,
   due_date DATE NOT NULL,
   is_paid BOOLEAN NOT NULL,
   note VARCHAR(200),
