@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS expense_group (
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
   total_budget INT NOT NULL,
-	CONSTRAINT user_account_id
+  CONSTRAINT user_account_id
     FOREIGN KEY(user_account_id)
     REFERENCES user_account(user_account_id)
 );
