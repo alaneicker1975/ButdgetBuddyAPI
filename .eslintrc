@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["atomikui", "airbnb", "airbnb-typescript"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "rules": {
+    "react/jsx-filename-extension": [0, { "extensions": [".jsx"] }],
+    "react/require-default-props": 0
+  }
+}

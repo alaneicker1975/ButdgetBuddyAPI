@@ -1,0 +1,41 @@
+{
+  "name": "budgetbuddyapi",
+  "version": "1.0.0",
+  "description": "API for BudgetBuddy",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src/index.js -d dist",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "start": "node dist/index.js",
+    "migrate": "node src/runMigrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alaneicker1975/ButdgetBuddyAPI.git"
+  },
+  "keywords": [
+    "Node.js",
+    "PostgeSQL",
+    "API"
+  ],
+  "author": "Alan Eicker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alaneicker1975/ButdgetBuddyAPI/issues"
+  },
+  "homepage": "https://github.com/alaneicker1975/ButdgetBuddyAPI#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.10.0",
+    "postgres-migrations": "^5.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.4",
+    "nodemon": "^2.0.22"
+  }
+}
