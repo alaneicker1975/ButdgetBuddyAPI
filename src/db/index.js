@@ -14,7 +14,7 @@ const dbConfig = {
   port: +DB_PORT,
 };
 
-export const client = new Client(dbConfig);
+const client = new Client(dbConfig);
 
 client.connect((err) => {
   if (err) {
@@ -35,3 +35,5 @@ client.connect((err) => {
     console.log('Could not run migration: ', e.message);
   }
 })();
+
+export { client };
