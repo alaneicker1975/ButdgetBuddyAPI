@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import { Client } from 'pg';
-import { migrate } from 'postgres-migrations';
 
 dotenv.config();
 
@@ -23,17 +22,5 @@ client.connect((err) => {
     console.log('Connected to database:', DB);
   }
 });
-
-(async () => {
-  try {
-    await migrate(
-      { ...dbConfig, ensureDatabaseExists: true },
-      './src/migrations',
-    );
-    console.log('Migration completed');
-  } catch (e) {
-    console.log('Could not run migration: ', e.message);
-  }
-})();
 
 export { client };
