@@ -1,21 +1,28 @@
 import { setErrorResponse } from '../helpers/response';
-import { runQuery } from '../db';
+import * as expense from '../models/expense';
 
 export const getAll = async (req, res) => {
-  const { data, error } = await runQuery('SELECT * FROM expense');
-  const status = error ? 500 : 200;
+  try {
+    const { data, error } = await expense.getAll();
+    const status = error ? 500 : 200;
 
-  res.status(status).send(error ? setErrorResponse(error, status) : { data });
+    res.status(status).send(error ? setErrorResponse(error, status) : { data });
+  } catch (error) {
+    res.status(500).send(setErrorResponse(error, 500));
+  }
 };
 
 export const getOne = async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await runQuery(
-    `SELECT * FROM expense WHERE expense_id = ${id}`,
-  );
-  const status = error ? 500 : 200;
 
-  res
-    .status(status)
-    .send(error ? setErrorResponse(error, status) : { data: data[0] });
+  try {
+    const { data, error } = await expense.getOne(id);
+    const status = error ? 500 : 200;
+
+    res
+      .status(status)
+      .send(error ? setErrorResponse(error, status) : { data: data[0] });
+  } catch (error) {
+    res.status(500).send(setErrorResponse(error, 500));
+  }
 };

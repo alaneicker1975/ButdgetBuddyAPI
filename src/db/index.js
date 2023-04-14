@@ -28,4 +28,4 @@ const runQuery = async (query) => {
   }
 };
 
-export { runQuery };
+export { runQuery, pool };
