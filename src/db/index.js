@@ -19,13 +19,4 @@ pool.connect((err) => {
   }
 });
 
-const runQuery = async (query) => {
-  try {
-    const { rows: data } = await pool.query(query);
-    return { data };
-  } catch (error) {
-    return { error };
-  }
-};
-
-export { runQuery, pool };
+export { pool };
