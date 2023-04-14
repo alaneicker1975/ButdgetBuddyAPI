@@ -3,22 +3,29 @@ import { Pool } from 'pg';
 
 dotenv.config();
 
-const { DB, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
-
 const pool = new Pool({
-  database: DB,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  host: DB_HOST,
-  port: +DB_PORT,
+  database: process.env.DB,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  port: +process.env.DB_PORT,
 });
 
 pool.connect((err) => {
   if (err) {
-    console.error('Erorr connecting to database', DB, err.stack);
+    console.log('Could not connect to database');
   } else {
-    console.log('Connected to database:', DB);
+    console.log('Connected to database');
   }
 });
 
-export { pool };
+const runQuery = async (query) => {
+  try {
+    const { rows: data } = await pool.query(query);
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export { runQuery };
