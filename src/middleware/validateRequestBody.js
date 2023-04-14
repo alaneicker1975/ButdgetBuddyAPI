@@ -2,8 +2,8 @@ import { Validator } from 'jsonschema';
 
 const validator = new Validator();
 
-export const validateRequestBody = (data, schema) => (req, res, next) => {
-  const { errors } = validator.validate(data, schema);
+export const validateRequestBody = (schema) => (req, res, next) => {
+  const { errors } = validator.validate(req.body, schema);
 
   if (errors.length > 0) {
     next();
