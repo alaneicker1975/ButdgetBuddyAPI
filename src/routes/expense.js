@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { getAll, getOne } from '../controllers/expense';
+import * as expense from '../controllers/expense';
 
 const router = Router();
 
-router.get('/', getAll);
-router.get('/:id', getOne);
+router.get('/', expense.getAll);
+router.get('/:id', expense.getOne);
 
 export default router;
