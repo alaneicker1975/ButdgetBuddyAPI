@@ -1,5 +1,7 @@
 import { setErrorResponse } from '../helpers/response';
-import * as expense from '../models/expense';
+import Expense from '../models/Expense';
+
+const expense = new Expense();
 
 export const getAll = async (req, res) => {
   try {
