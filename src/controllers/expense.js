@@ -40,6 +40,20 @@ export const insertOne = async (req, res) => {
   }
 };
 
+export const updateOne = async (req, res) => {
+  const { body } = req;
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await expense.updateOne(id, body);
+    const status = error ? 500 : 200;
+
+    res.status(status).send(error ? setErrorResponse(error, status) : { data });
+  } catch (error) {
+    res.status(500).send(setErrorResponse(error, 500));
+  }
+};
+
 export const deleteOne = async (req, res) => {
   const { id } = req.params;
 

@@ -1,4 +1,5 @@
 import { pool } from '../db';
+import { setColumnPlaceholders } from '../helpers/query';
 
 export const getAll = async () => {
   try {
@@ -32,6 +33,21 @@ export const insertOne = async (body) => {
        VALUES ($1)`,
       Object.values(body),
     );
+    return { data: { rowCount } };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const updateOne = async (id, body) => {
+  try {
+    const { rowCount } = await pool.query(
+      `UPDATE expense
+       SET ${setColumnPlaceholders(body)}
+       WHERE expense_id = ${id}`,
+      Object.values(body),
+    );
+
     return { data: { rowCount } };
   } catch (error) {
     return { error };
