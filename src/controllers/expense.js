@@ -3,8 +3,7 @@ import * as expense from '../models/expense';
 
 export const getAll = async (req, res) => {
   try {
-    const { data, error } = await expense.getAll();
-    const status = error ? 500 : 200;
+    const { data, error, status } = await expense.getAll();
 
     res.status(status).send(error ? setErrorResponse(error, status) : { data });
   } catch (error) {
@@ -16,8 +15,7 @@ export const getOne = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const { data, error } = await expense.getOne(id);
-    const status = error ? 500 : 200;
+    const { data, error, status } = await expense.getOne(id);
 
     res
       .status(status)
@@ -31,8 +29,7 @@ export const insertOne = async (req, res) => {
   const { body } = req;
 
   try {
-    const { data, error } = await expense.insertOne(body);
-    const status = error ? 500 : 201;
+    const { data, error, status } = await expense.insertOne(body);
 
     res.status(status).send(error ? setErrorResponse(error, status) : { data });
   } catch (error) {
@@ -45,8 +42,7 @@ export const updateOne = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const { data, error } = await expense.updateOne(id, body);
-    const status = error ? 500 : 200;
+    const { data, error, status } = await expense.updateOne(id, body);
 
     res.status(status).send(error ? setErrorResponse(error, status) : { data });
   } catch (error) {
@@ -58,8 +54,7 @@ export const deleteOne = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const { data, error } = await expense.deleteOne(id);
-    const status = error ? 500 : 200;
+    const { data, error, status } = await expense.deleteOne(id);
 
     res.status(status).send(error ? setErrorResponse(error, status) : { data });
   } catch (error) {

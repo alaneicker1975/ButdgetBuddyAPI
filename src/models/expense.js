@@ -7,9 +7,9 @@ export const getAll = async () => {
       `SELECT * 
        FROM expense`,
     );
-    return { data };
+    return { data, status: 200 };
   } catch (error) {
-    return { error };
+    return { error, status: 500 };
   }
 };
 
@@ -20,9 +20,9 @@ export const getOne = async (id) => {
        FROM expense 
        WHERE expense_id = ${id}`,
     );
-    return { data };
+    return { data, status: 200 };
   } catch (error) {
-    return { error };
+    return { error, status: 500 };
   }
 };
 
@@ -33,9 +33,9 @@ export const insertOne = async (body) => {
        VALUES ($1)`,
       Object.values(body),
     );
-    return { data: { rowCount } };
+    return { data: { rowCount }, status: 201 };
   } catch (error) {
-    return { error };
+    return { error, status: 500 };
   }
 };
 
@@ -48,9 +48,9 @@ export const updateOne = async (id, body) => {
       Object.values(body),
     );
 
-    return { data: { rowCount } };
+    return { data: { rowCount }, status: 200 };
   } catch (error) {
-    return { error };
+    return { error, status: 500 };
   }
 };
 
@@ -60,8 +60,8 @@ export const deleteOne = async (id) => {
       `DELETE FROM expense
        WHERE expense_id = ${id}`,
     );
-    return { data: { rowCount } };
+    return { data: { rowCount }, status: 200 };
   } catch (error) {
-    return { error };
+    return { error, status: 500 };
   }
 };
