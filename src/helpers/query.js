@@ -1,6 +1,11 @@
-export const setColumnPlaceholders = (body) => {
-  const placeholders = Object.keys(body).map(
-    (cols, index) => `${cols} = $${index + 1}`,
-  );
-  return placeholders.join(', ');
-};
+export const setUpdatePlaceholders = (body = {}) =>
+  Object.keys(body)
+    .map((cols, index) => `${cols} = $${index + 1}`)
+    .join(', ');
+
+export const setInsertPlaceholders = (body = {}) =>
+  Object.keys(body)
+    .map((_, index) => `$${index + 1}`)
+    .join(', ');
+
+export const getValues = (body = {}) => Object.values(body);
