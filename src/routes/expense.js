@@ -5,5 +5,7 @@ const router = Router();
 
 router.get('/', expense.getAll);
 router.get('/:id', expense.getOne);
+router.post('/', expense.insertOne);
+router.delete('/:id', expense.deleteOne);
 
 export default router;
