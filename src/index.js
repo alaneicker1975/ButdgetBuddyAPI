@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import './db';
 import * as routes from './routes';
@@ -9,6 +10,7 @@ const port = process.env.PORT || 9000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(helmet());
 app.use(cors());
 
 app.use(`${process.env.BASE_URL}/expense`, routes.expense);
