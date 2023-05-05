@@ -5,10 +5,11 @@
     "version": "1.0.0"
   },
   "schemes": ["http", "https"],
+  "basePath": "/api/v1",
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/api/v1/expense": {
+    "/expense": {
       "get": {
         "summary": "GET /expense",
         "operationId": "ListExpenses",
@@ -17,6 +18,12 @@
             "description": "List all expenses",
             "schema": {
               "$ref": "#/definitions/expenseListResponse"
+            }
+          },
+          "500": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/generalErrorResponse"
             }
           }
         },
@@ -44,6 +51,22 @@
         },
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "generalErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
         }
       }
     }
