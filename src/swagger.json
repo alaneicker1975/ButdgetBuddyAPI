@@ -8,7 +8,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/ops/features": {
+    "/api/v1/expense": {
       "get": {
         "summary": "GET /expense",
         "operationId": "ListExpenses",
