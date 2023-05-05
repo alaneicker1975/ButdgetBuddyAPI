@@ -12,7 +12,7 @@
     "/expense": {
       "get": {
         "summary": "GET /expense",
-        "operationId": "ListExpenses",
+        "operationId": "GetExpenses",
         "responses": {
           "200": {
             "description": "List all expenses",
@@ -27,7 +27,23 @@
             }
           }
         },
-        "tags": ["Generic"]
+        "tags": ["Expenses"]
+      },
+      "post": {
+        "summary": "GET /expense",
+        "operationId": "PostExpenses",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "description": "Expense request body",
+            "schema": {
+              "$ref": "#/definitions/expensePostBody"
+            }
+          }
+        ],
+        "responses": {},
+        "tags": ["Expenses"]
       }
     }
   },
@@ -49,6 +65,14 @@
         "expense_id": {
           "type": "integer"
         },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "expensePostBody": {
+      "type": "object",
+      "properties": {
         "name": {
           "type": "string"
         }
