@@ -61,22 +61,22 @@
       }
     },
     "/expense/{expenseId}": {
-      "delete": {
-        "summary": "Deletes an expense",
-        "operationId": "DeleteExpense",
+      "get": {
+        "summary": "Gets one expense",
+        "operationId": "GetExpense",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Expense id to delete",
+            "description": "ID of expense to return",
             "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful: Returns id of deleted expense",
+            "description": "Successful: Returns one expense",
             "schema": {
-              "$ref": "#/definitions/deleteExpenseResponse"
+              "$ref": "#/definitions/getExpenseResponse"
             }
           },
           "500": {
@@ -95,7 +95,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Expense id to update",
+            "description": "ID of expense to update",
             "required": true
           },
           {
@@ -123,6 +123,33 @@
           }
         },
         "tags": ["expense"]
+      },
+      "delete": {
+        "summary": "Deletes an expense",
+        "operationId": "DeleteExpense",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of expense to delete",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful: Returns id of deleted expense",
+            "schema": {
+              "$ref": "#/definitions/deleteExpenseResponse"
+            }
+          },
+          "500": {
+            "description": "Unsuccessful: Returns error response",
+            "schema": {
+              "$ref": "#/definitions/generalErrorResponse"
+            }
+          }
+        },
+        "tags": ["expense"]
       }
     }
   },
@@ -135,6 +162,15 @@
           "items": {
             "$ref": "#/definitions/expenseItem"
           }
+        }
+      }
+    },
+    "getExpenseResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "$ref": "#/definitions/expenseItem"
         }
       }
     },
