@@ -66,7 +66,7 @@
         "operationId": "GetExpense",
         "parameters": [
           {
-            "name": "id",
+            "name": "expenseId",
             "in": "path",
             "description": "ID of expense to return",
             "required": true

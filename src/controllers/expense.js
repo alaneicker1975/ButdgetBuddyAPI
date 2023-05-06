@@ -13,10 +13,10 @@ export const getAll = async (req, res) => {
 };
 
 export const getOne = async (req, res) => {
-  const { id } = req.params;
+  const { expenseId } = req.params;
 
   try {
-    const { data, error } = await expense.getOne(id);
+    const { data, error } = await expense.getOne(expenseId);
     const status = error?.status || 200;
 
     res
@@ -42,10 +42,10 @@ export const insertOne = async (req, res) => {
 
 export const updateOne = async (req, res) => {
   const { body } = req;
-  const { id } = req.params;
+  const { expenseId } = req.params;
 
   try {
-    const { data, error } = await expense.updateOne(id, body);
+    const { data, error } = await expense.updateOne(expenseId, body);
     const status = error?.status || 200;
 
     res.status(status).send(error ? setErrorResponse(error, status) : { data });
@@ -55,10 +55,10 @@ export const updateOne = async (req, res) => {
 };
 
 export const deleteOne = async (req, res) => {
-  const { id } = req.params;
+  const { expenseId } = req.params;
 
   try {
-    const { data, error } = await expense.deleteOne(id);
+    const { data, error } = await expense.deleteOne(expenseId);
     const status = error?.status || 200;
 
     res.status(status).send(error ? setErrorResponse(error, status) : { data });
