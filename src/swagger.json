@@ -39,7 +39,7 @@
             "in": "body",
             "description": "Expense request body",
             "schema": {
-              "$ref": "#/definitions/postExpenseBody"
+              "$ref": "#/definitions/expenseRequestBody"
             }
           }
         ],
@@ -87,6 +87,42 @@
           }
         },
         "tags": ["expense"]
+      },
+      "patch": {
+        "summary": "Updates an expense",
+        "operationId": "UpdateExpense",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Expense id to update",
+            "required": true
+          },
+          {
+            "required": true,
+            "name": "Body",
+            "in": "body",
+            "description": "Expense request body",
+            "schema": {
+              "$ref": "#/definitions/expenseRequestBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful: Returns id of deleted expense",
+            "schema": {
+              "$ref": "#/definitions/patchExpenseResponse"
+            }
+          },
+          "500": {
+            "description": "Unsuccessful: Returns error response",
+            "schema": {
+              "$ref": "#/definitions/generalErrorResponse"
+            }
+          }
+        },
+        "tags": ["expense"]
       }
     }
   },
@@ -102,7 +138,7 @@
         }
       }
     },
-    "postExpenseBody": {
+    "expenseRequestBody": {
       "type": "object",
       "properties": {
         "name": {
@@ -130,6 +166,19 @@
           "type": "object",
           "properties": {
             "deleted_id": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "patchExpenseResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "updated_id": {
               "type": "integer"
             }
           }
