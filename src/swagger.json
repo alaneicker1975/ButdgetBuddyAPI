@@ -11,44 +11,87 @@
   "paths": {
     "/expense": {
       "get": {
-        "summary": "GET /expense",
-        "operationId": "GetExpenses",
+        "summary": "Gets all expenses",
+        "operationId": "GetAllExpenses",
         "responses": {
           "200": {
-            "description": "List all expenses",
+            "description": "Successful: Returns list of all expenses",
             "schema": {
-              "$ref": "#/definitions/expenseListResponse"
+              "$ref": "#/definitions/getAllExpensesResponse"
             }
           },
           "500": {
-            "description": "Error response",
+            "description": "Unsuccessful: Returns error response",
             "schema": {
               "$ref": "#/definitions/generalErrorResponse"
             }
           }
         },
-        "tags": ["Expenses"]
+        "tags": ["expense"]
       },
       "post": {
-        "summary": "GET /expense",
-        "operationId": "PostExpenses",
+        "summary": "Creates an expense",
+        "operationId": "PostExpense",
         "parameters": [
           {
+            "required": true,
             "name": "Body",
             "in": "body",
             "description": "Expense request body",
             "schema": {
-              "$ref": "#/definitions/expensePostBody"
+              "$ref": "#/definitions/postExpenseBody"
             }
           }
         ],
-        "responses": {},
-        "tags": ["Expenses"]
+        "responses": {
+          "200": {
+            "description": "Successful: Returns id of created expense",
+            "schema": {
+              "$ref": "#/definitions/postExpenseResponse"
+            }
+          },
+          "500": {
+            "description": "Unsuccessful: Returns error response",
+            "schema": {
+              "$ref": "#/definitions/generalErrorResponse"
+            }
+          }
+        },
+        "tags": ["expense"]
+      }
+    },
+    "/expense/{expenseId}": {
+      "delete": {
+        "summary": "Deletes an expense",
+        "operationId": "DeleteExpense",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Expense id to delete",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful: Returns id of deleted expense",
+            "schema": {
+              "$ref": "#/definitions/deleteExpenseResponse"
+            }
+          },
+          "500": {
+            "description": "Unsuccessful: Returns error response",
+            "schema": {
+              "$ref": "#/definitions/generalErrorResponse"
+            }
+          }
+        },
+        "tags": ["expense"]
       }
     }
   },
   "definitions": {
-    "expenseListResponse": {
+    "getAllExpensesResponse": {
       "type": "object",
       "properties": {
         "data": {
@@ -59,22 +102,37 @@
         }
       }
     },
-    "expenseItem": {
+    "postExpenseBody": {
       "type": "object",
       "properties": {
-        "expense_id": {
-          "type": "integer"
-        },
         "name": {
           "type": "string"
         }
       }
     },
-    "expensePostBody": {
+    "postExpenseResponse": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "created_id": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "deleteExpenseResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "deleted_id": {
+              "type": "integer"
+            }
+          }
         }
       }
     },
@@ -91,6 +149,17 @@
               "type": "string"
             }
           }
+        }
+      }
+    },
+    "expenseItem": {
+      "type": "object",
+      "properties": {
+        "expense_id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
         }
       }
     }
