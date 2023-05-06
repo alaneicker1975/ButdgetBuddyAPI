@@ -14,12 +14,12 @@ export const getAll = async () => {
   }
 };
 
-export const getOne = async (id) => {
+export const getOne = async (expenseId) => {
   try {
     const { rows: data } = await pool.query(
       `SELECT * 
        FROM expense 
-       WHERE expense_id = ${id}`,
+       WHERE expense_id = ${expenseId}`,
     );
     return { data };
   } catch (error) {
@@ -43,12 +43,12 @@ export const insertOne = async (body) => {
   }
 };
 
-export const updateOne = async (id, body) => {
+export const updateOne = async (expenseId, body) => {
   try {
     const { rows } = await pool.query(
       `UPDATE expense
        SET ${setUpdatePlaceholders(body)}
-       WHERE expense_id = ${id}
+       WHERE expense_id = ${expenseId}
        RETURNING expense_id`,
       getValues(body),
     );
@@ -60,11 +60,11 @@ export const updateOne = async (id, body) => {
   }
 };
 
-export const deleteOne = async (id) => {
+export const deleteOne = async (expenseId) => {
   try {
     const { rows } = await pool.query(
       `DELETE FROM expense
-       WHERE expense_id = ${id}
+       WHERE expense_id = ${expenseId}
        RETURNING expense_id`,
     );
     return { data: { deleted_id: rows[0].expense_id } };
