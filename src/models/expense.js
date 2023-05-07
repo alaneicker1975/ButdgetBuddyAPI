@@ -5,7 +5,8 @@ export const getAll = async () => {
   try {
     const { rows: data } = await pool.query(
       `SELECT * 
-       FROM expense`,
+       FROM expense
+       ORDER BY name`,
     );
     return { data };
   } catch (error) {
