@@ -23,10 +23,10 @@ app.use(
   swaggerUI.setup(swaggerDocument),
 );
 
-// All routes required authorization token
+// Adds token authorization requirement to the routes below
 app.use('/', validateToken);
 
-// Expense routes
+// API Routes
 app.use(`${process.env.BASE_URL}/auth`, routes.auth);
 app.use(`${process.env.BASE_URL}/user`, routes.user);
 app.use(`${process.env.BASE_URL}/expense`, routes.expense);
