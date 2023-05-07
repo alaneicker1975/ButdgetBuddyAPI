@@ -26,7 +26,7 @@ app.use(
 // Adds token authorization requirement to the routes below
 app.use('/', validateToken);
 
-// Creates API Routes
+// Creates API routes
 ['auth', 'user', 'expense'].forEach((endpoint) => {
   app.use(`${process.env.BASE_URL}/${endpoint}`, routes[endpoint]);
 });
