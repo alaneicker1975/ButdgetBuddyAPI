@@ -15,13 +15,13 @@
         "operationId": "GetAllExpenses",
         "responses": {
           "200": {
-            "description": "Successful: Returns list of all expenses",
+            "description": "Returns list of all expenses",
             "schema": {
               "$ref": "#/definitions/getAllExpensesResponse"
             }
           },
           "500": {
-            "description": "Unsuccessful: Returns error response",
+            "description": "Internal server error",
             "schema": {
               "$ref": "#/definitions/generalErrorResponse"
             }
@@ -45,13 +45,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful: Returns id of created expense",
+            "description": "Returns id of created expense",
             "schema": {
               "$ref": "#/definitions/postExpenseResponse"
             }
           },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/generalErrorResponse"
+            }
+          },
           "500": {
-            "description": "Unsuccessful: Returns error response",
+            "description": "Internal server error",
             "schema": {
               "$ref": "#/definitions/generalErrorResponse"
             }
@@ -74,13 +80,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful: Returns one expense",
+            "description": "Returns one expense",
             "schema": {
               "$ref": "#/definitions/getExpenseResponse"
             }
           },
           "500": {
-            "description": "Unsuccessful: Returns error response",
+            "description": "Internal server error",
             "schema": {
               "$ref": "#/definitions/generalErrorResponse"
             }
@@ -110,13 +116,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful: Returns id of deleted expense",
+            "description": "Returns id of deleted expense",
             "schema": {
               "$ref": "#/definitions/patchExpenseResponse"
             }
           },
           "500": {
-            "description": "Unsuccessful: Returns error response",
+            "description": "Returns error response",
             "schema": {
               "$ref": "#/definitions/generalErrorResponse"
             }
@@ -137,13 +143,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful: Returns id of deleted expense",
+            "description": "Returns id of deleted expense",
             "schema": {
               "$ref": "#/definitions/deleteExpenseResponse"
             }
           },
           "500": {
-            "description": "Unsuccessful: Returns error response",
+            "description": " Returns error response",
             "schema": {
               "$ref": "#/definitions/generalErrorResponse"
             }
