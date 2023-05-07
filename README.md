@@ -2,6 +2,8 @@
 
 The Budget Buddy REST API is powered by Node.js and PostgreSQL.
 
+_Note: This project is a work in progress_
+
 ## Setup
 
 #### Install the dependencies
