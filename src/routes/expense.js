@@ -6,9 +6,13 @@ import { expenseSchema } from '../schemas/expenses';
 const router = Router();
 
 router.get('/', expense.getAll);
-router.get('/:expenseId', expense.getOne);
 router.post('/', validateRequestBody(expenseSchema), expense.insertOne);
-router.patch('/:expenseId', expense.updateOne);
+router.get('/:expenseId', expense.getOne);
+router.patch(
+  '/:expenseId',
+  validateRequestBody(expenseSchema),
+  expense.updateOne,
+);
 router.delete('/:expenseId', expense.deleteOne);
 
 export default router;
