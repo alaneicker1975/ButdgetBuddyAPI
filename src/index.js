@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import swaggerUI from 'swagger-ui-express';
 import { validateToken } from './middleware/validateToken';
-import swaggerDocument from './swagger.json';
+import swaggerDocument from './docs/swagger.json';
 
 import './db';
 import * as routes from './routes';
@@ -30,5 +30,6 @@ app.use('/', validateToken);
 app.use(`${process.env.BASE_URL}/auth`, routes.auth);
 app.use(`${process.env.BASE_URL}/user`, routes.user);
 app.use(`${process.env.BASE_URL}/expense`, routes.expense);
+// app.use(`${process.env.BASE_URL}/expense-group`, routes.expenseGroup);
 
 app.listen(port, () => console.log('Server running on port', port));
