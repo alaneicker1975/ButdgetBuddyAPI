@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
-// Swagger API documentation
+// API documentation
 app.use(
   `${process.env.BASE_URL}/api-docs`,
   swaggerUI.serve,
