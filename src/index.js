@@ -26,10 +26,9 @@ app.use(
 // Adds token authorization requirement to the routes below
 app.use('/', validateToken);
 
-// API Routes
-app.use(`${process.env.BASE_URL}/auth`, routes.auth);
-app.use(`${process.env.BASE_URL}/user`, routes.user);
-app.use(`${process.env.BASE_URL}/expense`, routes.expense);
-// app.use(`${process.env.BASE_URL}/expense-group`, routes.expenseGroup);
+// Creates API Routes
+['auth', 'user', 'expense'].forEach((endpoint) => {
+  app.use(`${process.env.BASE_URL}/${endpoint}`, routes[endpoint]);
+});
 
 app.listen(port, () => console.log('Server running on port', port));
