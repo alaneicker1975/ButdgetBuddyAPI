@@ -27,6 +27,8 @@ app.use(
 app.use('/', validateToken);
 
 // Expense routes
+app.use(`${process.env.BASE_URL}/auth`, routes.auth);
+app.use(`${process.env.BASE_URL}/user`, routes.user);
 app.use(`${process.env.BASE_URL}/expense`, routes.expense);
 
 app.listen(port, () => console.log('Server running on port', port));
