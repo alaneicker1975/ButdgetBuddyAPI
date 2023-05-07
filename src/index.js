@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import swaggerUI from 'swagger-ui-express';
 import { validateToken } from './middleware/validateToken';
-import swaggerDocument from './docs/swagger.json';
+import swaggerJson from './docs/swagger.json';
 
 import './db';
 import * as routes from './routes';
@@ -20,7 +20,7 @@ app.use(cors());
 app.use(
   `${process.env.BASE_URL}/api-docs`,
   swaggerUI.serve,
-  swaggerUI.setup(swaggerDocument),
+  swaggerUI.setup(swaggerJson),
 );
 
 // Adds token authorization requirement to the routes below
