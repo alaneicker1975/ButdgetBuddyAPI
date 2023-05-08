@@ -8,6 +8,7 @@ export const getAll = async () => {
        FROM expense
        ORDER BY name`,
     );
+
     return { data };
   } catch (error) {
     error.status = 500;
@@ -22,6 +23,7 @@ export const getOne = async (expenseId) => {
        FROM expense 
        WHERE expense_id = ${expenseId}`,
     );
+
     return { data };
   } catch (error) {
     error.status = 500;
@@ -69,6 +71,7 @@ export const deleteOne = async (expenseId) => {
        WHERE expense_id = ${expenseId}
        RETURNING expense_id`,
     );
+
     return { data: { deleted_id: rows[0].expense_id } };
   } catch (error) {
     error.status = 500;

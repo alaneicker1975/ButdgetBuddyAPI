@@ -1,68 +1,71 @@
-import { setErrorResponse } from '../helpers/response';
 import * as expense from '../models/expense';
 
-export const getAll = async (req, res) => {
+export const getAll = async (req, res, next) => {
   try {
     const { data, error } = await expense.getAll();
-    const status = error?.status || 200;
 
-    res.status(status).send(error ? setErrorResponse(error, status) : { data });
+    if (error) return next(error);
+
+    return res.status(200).send({ data });
   } catch (error) {
-    res.status(500).send(setErrorResponse(error, 500));
+    error.status = 500;
+    return next(error);
   }
 };
 
-export const getOne = async (req, res) => {
-  const { expenseId } = req.params;
-
+export const getOne = async (req, res, next) => {
   try {
+    const { expenseId } = req.params;
     const { data, error } = await expense.getOne(expenseId);
-    const status = error?.status || 200;
 
-    res
-      .status(status)
-      .send(error ? setErrorResponse(error, status) : { data: data[0] });
+    if (error) return next(error);
+
+    return res.status(200).send({ data: data[0] });
   } catch (error) {
-    res.status(500).send(setErrorResponse(error, 500));
+    error.status = 500;
+    return next(error);
   }
 };
 
-export const insertOne = async (req, res) => {
-  const { body } = req;
-
+export const insertOne = async (req, res, next) => {
   try {
+    const { body } = req;
     const { data, error } = await expense.insertOne(body);
-    const status = error?.status || 201;
 
-    res.status(status).send(error ? setErrorResponse(error, status) : { data });
+    if (error) return next(error);
+
+    res.status(201).send({ data });
   } catch (error) {
-    res.status(500).send(setErrorResponse(error, 500));
+    error.status = 500;
+    return next(error);
   }
 };
 
-export const updateOne = async (req, res) => {
-  const { body } = req;
-  const { expenseId } = req.params;
-
+export const updateOne = async (req, res, next) => {
   try {
+    const { body } = req;
+    const { expenseId } = req.params;
     const { data, error } = await expense.updateOne(expenseId, body);
-    const status = error?.status || 200;
 
-    res.status(status).send(error ? setErrorResponse(error, status) : { data });
+    if (error) return next(error);
+
+    res.status(200).send({ data });
   } catch (error) {
-    res.status(500).send(setErrorResponse(error, 500));
+    error.status = 500;
+    return next(error);
   }
 };
 
-export const deleteOne = async (req, res) => {
-  const { expenseId } = req.params;
-
+export const deleteOne = async (req, res, next) => {
   try {
+    const { expenseId } = req.params;
     const { data, error } = await expense.deleteOne(expenseId);
-    const status = error?.status || 200;
 
-    res.status(status).send(error ? setErrorResponse(error, status) : { data });
+    if (error) return next(error);
+
+    res.status(200).send({ data });
   } catch (error) {
-    res.status(500).send(setErrorResponse(error, 500));
+    error.status = 500;
+    return next(error);
   }
 };

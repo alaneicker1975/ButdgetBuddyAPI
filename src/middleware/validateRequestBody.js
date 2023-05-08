@@ -1,5 +1,5 @@
 import { Validator } from 'jsonschema';
-import { setErrorResponse } from '../helpers/response';
+import { createError } from '../helpers/error';
 
 const validator = new Validator();
 
@@ -9,8 +9,8 @@ export const validateRequestBody = (schema) => (req, res, next) => {
   if (errors.length === 0) {
     return next();
   } else {
-    const error = new Error(errors.map((error) => error.stack).join(', '));
-    error.status = 400;
-    return next(error);
+    return next(
+      createError(400, errors.map((error) => error.stack).join(', ')),
+    );
   }
 };
