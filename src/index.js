@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import swaggerUI from 'swagger-ui-express';
 import { validateToken } from './middleware/validateToken';
+import { setErrorResponse } from './helpers/response';
+import { ERRORS } from './constants/errors';
 import swaggerJson from './docs/swagger.json';
 
 import './db';
@@ -26,12 +28,25 @@ app.use(
 // Auth route
 app.use(`${process.env.BASE_URL}/auth`, routes.auth);
 
-// Adds token authorization requirement to the routes below
-app.use('/', validateToken);
-
 // Creates API routes
 ['user', 'expense'].forEach((endpoint) => {
-  app.use(`${process.env.BASE_URL}/${endpoint}`, routes[endpoint]);
+  app.use(
+    `${process.env.BASE_URL}/${endpoint}`,
+    validateToken,
+    routes[endpoint],
+  );
+});
+
+app.use((err, req, res, next) => {
+  if (!err) {
+    return next();
+  }
+
+  const status = err.status;
+
+  res
+    .status(status)
+    .send(setErrorResponse(err.message || ERRORS[status], status));
 });
 
 app.listen(port, () => console.log('Server running on port', port));

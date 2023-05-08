@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import { pool } from '../db';
-import { INVALID_USER } from '../constants/errors';
 
 export const authenticateUser = async (body) => {
   try {
@@ -16,12 +15,12 @@ export const authenticateUser = async (body) => {
     const isValidUser = await bcrypt.compare(body.password, password);
 
     if (!isValidUser) {
-      throw new Error(INVALID_USER);
+      throw new Error();
     }
 
     return { user };
   } catch (error) {
-    error.status = 500;
+    error.status = 401;
     return { error };
   }
 };

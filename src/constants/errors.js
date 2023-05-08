@@ -1,2 +1,5 @@
-export const INVALID_USER = 'Username or password is incorrect';
-export const NOT_AUTHORIZED = 'Not Authorized';
+export const ERRORS = {
+  400: 'Bad Request',
+  401: 'Not Authorized',
+  500: 'Internal Server Error',
+};

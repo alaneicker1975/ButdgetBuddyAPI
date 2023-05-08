@@ -37,6 +37,7 @@ export const insertOne = async (body) => {
        RETURNING expense_id`,
       getValues(body),
     );
+
     return { data: { created_id: rows[0].expense_id } };
   } catch (error) {
     error.status = 500;

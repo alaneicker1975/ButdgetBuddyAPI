@@ -7,9 +7,10 @@ export const validateRequestBody = (schema) => (req, res, next) => {
   const { errors } = validator.validate(req.body, schema);
 
   if (errors.length === 0) {
-    next();
+    return next();
   } else {
-    const error = { message: errors.map((error) => error.stack).join(', ') };
-    res.status(400).send(setErrorResponse(error, 400));
+    const error = new Error(errors.map((error) => error.stack).join(', '));
+    error.status = 400;
+    return next(error);
   }
 };

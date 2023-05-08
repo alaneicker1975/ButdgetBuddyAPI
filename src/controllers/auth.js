@@ -2,23 +2,18 @@ import jwt from 'jsonwebtoken';
 import { setErrorResponse } from '../helpers/response';
 import * as auth from '../models/auth';
 
-export const authenticateUser = async (req, res) => {
-  try {
-    const { user, error } = await auth.authenticateUser(req.body);
-    const status = error?.status || 200;
+export const authenticateUser = async (req, res, next) => {
+  const { user, error } = await auth.authenticateUser(req.body);
 
-    res.status(status).send(
-      error
-        ? setErrorResponse(error, status)
-        : {
-            data: {
-              token: jwt.sign(user, process.env.JWT_SECRET, {
-                expiresIn: 3600,
-              }),
-            },
-          },
-    );
-  } catch (error) {
-    res.status(500).send(setErrorResponse({ message: error.message }, 500));
+  if (error) {
+    return next(error);
   }
+
+  res.status(200).send({
+    data: {
+      token: jwt.sign(user, process.env.JWT_SECRET, {
+        expiresIn: 3600,
+      }),
+    },
+  });
 };

@@ -1,6 +1,6 @@
-export const setErrorResponse = (error, code) => ({
+export const setErrorResponse = (message, code) => ({
   error: {
     code,
-    message: error.message,
+    message,
   },
 });

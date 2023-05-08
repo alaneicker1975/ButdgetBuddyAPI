@@ -1,11 +1,11 @@
 import { setErrorResponse } from '../helpers/response';
 import jwt from 'jsonwebtoken';
-import { NOT_AUTHORIZED } from '../constants/errors';
 
 export const validateToken = async (req, res, next) => {
   if (!req.headers.authorization) {
-    res.status(401).send(setErrorResponse({ message: NOT_AUTHORIZED }, 401));
-    return;
+    const error = new Error();
+    error.status = 401;
+    return next(error);
   }
 
   const authHeader = req.headers.authorization;
@@ -13,8 +13,10 @@ export const validateToken = async (req, res, next) => {
 
   try {
     jwt.verify(token, process.env.JWT_SECRET);
-    next();
+    return next();
   } catch {
-    res.status(401).send(setErrorResponse({ message: NOT_AUTHORIZED }, 401));
+    const error = new Error();
+    error.status = 401;
+    return next(error);
   }
 };
