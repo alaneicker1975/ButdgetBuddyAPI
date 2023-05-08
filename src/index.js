@@ -23,11 +23,14 @@ app.use(
   swaggerUI.setup(swaggerJson),
 );
 
+// Auth route
+app.use(`${process.env.BASE_URL}/auth`, routes.auth);
+
 // Adds token authorization requirement to the routes below
 app.use('/', validateToken);
 
 // Creates API routes
-['auth', 'user', 'expense'].forEach((endpoint) => {
+['user', 'expense'].forEach((endpoint) => {
   app.use(`${process.env.BASE_URL}/${endpoint}`, routes[endpoint]);
 });
 

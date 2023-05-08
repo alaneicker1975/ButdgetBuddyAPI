@@ -2,8 +2,6 @@ import jwt from 'jsonwebtoken';
 import { setErrorResponse } from '../helpers/response';
 import * as auth from '../models/auth';
 
-const loginError = 'Username or password is incorrect';
-
 export const authenticateUser = async (req, res) => {
   try {
     const { user, error } = await auth.authenticateUser(req.body);
@@ -15,12 +13,12 @@ export const authenticateUser = async (req, res) => {
         : {
             data: {
               token: jwt.sign(user, process.env.JWT_SECRET, {
-                expiresIn: 1800,
+                expiresIn: 3600,
               }),
             },
           },
     );
   } catch (error) {
-    res.status(500).send(setErrorResponse({ message: loginError }, 500));
+    res.status(500).send(setErrorResponse({ message: error.message }, 500));
   }
 };
