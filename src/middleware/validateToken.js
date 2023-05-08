@@ -1,11 +1,10 @@
-import { setErrorResponse } from '../helpers/response';
 import jwt from 'jsonwebtoken';
+import { setErrorResponse } from '../helpers/response';
+import { createError } from '../helpers/error';
 
 export const validateToken = async (req, res, next) => {
   if (!req.headers.authorization) {
-    const error = new Error();
-    error.status = 401;
-    return next(error);
+    return next(createError(401));
   }
 
   const authHeader = req.headers.authorization;
@@ -15,8 +14,6 @@ export const validateToken = async (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET);
     return next();
   } catch {
-    const error = new Error();
-    error.status = 401;
-    return next(error);
+    return next(createError(401));
   }
 };
