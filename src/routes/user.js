@@ -5,8 +5,8 @@ import { userSchema } from '../schemas/user';
 
 const router = Router();
 
-// router.post('/', validateRequestBody(userSchema), user.insertOne);
-// router.patch('/:userId', validateRequestBody(userSchema), user.updateOne);
-// router.delete('/:userId', user.deleteOne);
+router.post('/', validateRequestBody(userSchema), user.insertOne);
+router.patch('/:userId', validateRequestBody(userSchema), user.updateOne);
+router.delete('/:userId', user.deleteOne);
 
 export default router;
