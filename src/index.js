@@ -37,6 +37,7 @@ app.use(`${process.env.BASE_URL}/auth`, routes.auth);
   );
 });
 
+// Catches arrors and returns response with error
 app.use((err, req, res, next) => {
   if (!err) {
     return next();
