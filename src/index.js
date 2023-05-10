@@ -15,6 +15,7 @@ const port = process.env.PORT || 9000;
 
 const swaggerOptions = {
   swaggerDefinition: {
+    basePath: process.env.BASE_URL,
     info: {
       version: '1.0.0',
       title: 'BudgetBuddy API',
