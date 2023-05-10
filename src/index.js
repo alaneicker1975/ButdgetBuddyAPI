@@ -3,8 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
-import './db';
 
+import './db';
 import { swaggerOptions } from './configs/swagger';
 import { validateToken } from './middleware/validateToken';
 import { setErrorResponse } from './helpers/response';

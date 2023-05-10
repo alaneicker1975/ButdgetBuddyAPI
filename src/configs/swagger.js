@@ -1,15 +1,35 @@
 export const swaggerOptions = {
   swaggerDefinition: {
-    basePath: process.env.BASE_URL,
+    openapi: '3.0.1',
     info: {
       version: '1.0.0',
       title: 'BudgetBuddy API',
       description: 'Budget Buddy API powered by Node.js and PosgreSQL.',
       contact: {
         name: 'Alan Eicker',
+        email: 'alaneicker@gmail.com',
       },
-      servers: ['http://localhost:9000'],
     },
+    basePath: process.env.BASE_URL,
+    servers: [
+      {
+        url: '/api/v1',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ['./src/routes/*.js'],
 };
