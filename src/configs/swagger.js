@@ -14,8 +14,10 @@ export const swaggerOptions = {
     servers: [
       {
         url: '/api/v1',
+        description: 'Local',
       },
     ],
+    supportedSubmitMethods: ['get'],
     components: {
       securitySchemes: {
         bearerAuth: {

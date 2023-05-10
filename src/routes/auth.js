@@ -7,6 +7,35 @@ const router = Router();
 
 /**
  * @swagger
+ *  components:
+ *    schema:
+ *      authRequestBody:
+ *        type: object
+ *        properties:
+ *          username:
+ *            type: string
+ *          password:
+ *            type: string
+ *      authSuccessResponse:
+ *        type: object
+ *        properties:
+ *          data:
+ *            type: object
+ *            properties:
+ *              token:
+ *                type: string
+ *      authErrorResponse:
+ *        type: object
+ *        properties:
+ *          data:
+ *            type: object
+ *            properties:
+ *              code:
+ *                type: number
+ *              message:
+ *                type: string
+ *
+ * @swagger
  * /auth:
  *  post:
  *    tags:
@@ -17,19 +46,26 @@ const router = Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *              username:
- *                type: string
- *              password:
- *                type: string
+ *             $ref: '#components/schema/authRequestBody'
  *    responses:
  *      '200':
  *        description: A successful response
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#components/schema/authSuccessResponse'
  *      '401':
  *        description: Not authorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#components/schema/authErrorResponse'
  *      '500':
  *        description: Internal server error
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#components/schema/authErrorResponse'
  */
 router.post('/', validateRequestBody(userSchema), auth.authenticateUser);
 
