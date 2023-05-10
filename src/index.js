@@ -1,17 +1,34 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 import { validateToken } from './middleware/validateToken';
 import { setErrorResponse } from './helpers/response';
 import { ERRORS } from './constants/errors';
-import swaggerJson from './docs/swagger.json';
 
 import './db';
 import * as routes from './routes';
 
 const app = express();
 const port = process.env.PORT || 9000;
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      version: '1.0.0',
+      title: 'BudgetBuddy API',
+      description: 'Budget Buddy API powered by Node.js and PosgreSQL.',
+      contact: {
+        name: 'Alan Eicker',
+      },
+      servers: ['http://localhost:9000'],
+    },
+  },
+  apis: ['./src/routes/*.js'],
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,7 +39,7 @@ app.use(cors());
 app.use(
   `${process.env.BASE_URL}/api-docs`,
   swaggerUI.serve,
-  swaggerUI.setup(swaggerJson),
+  swaggerUI.setup(swaggerDocs),
 );
 
 // Auth route
