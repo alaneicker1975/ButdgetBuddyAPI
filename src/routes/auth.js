@@ -11,10 +11,25 @@ const router = Router();
  *  post:
  *    tags:
  *      - auth
- *    summary: Creates an new user
+ *    summary: Authenticates a user
+ *    requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *              username:
+ *                type: string
+ *              password:
+ *                type: string
  *    responses:
  *      '200':
  *        description: A successful response
+ *      '401':
+ *        description: Not authorized
+ *      '500':
+ *        description: Internal server error
  */
 router.post('/', validateRequestBody(userSchema), auth.authenticateUser);
 
