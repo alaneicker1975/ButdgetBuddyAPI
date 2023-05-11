@@ -16,7 +16,7 @@ const router = Router();
  *            type: string
  *          password:
  *            type: string
- *      authSuccessResponse:
+ *      successResponse:
  *        type: object
  *        properties:
  *          data:
@@ -24,14 +24,14 @@ const router = Router();
  *            properties:
  *              token:
  *                type: string
- *      authErrorResponse:
+ *      errorResponse:
  *        type: object
  *        properties:
- *          data:
+ *          error:
  *            type: object
  *            properties:
  *              code:
- *                type: number
+ *                type: integer
  *              message:
  *                type: string
  *
@@ -53,19 +53,19 @@ const router = Router();
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#components/schema/authSuccessResponse'
+ *              $ref: '#components/schema/successResponse'
  *      '401':
  *        description: Not authorized
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#components/schema/authErrorResponse'
+ *              $ref: '#components/schema/errorResponse'
  *      '500':
  *        description: Internal server error
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#components/schema/authErrorResponse'
+ *              $ref: '#components/schema/errorResponse'
  */
 router.post('/', validateRequestBody(userSchema), auth.authenticateUser);
 

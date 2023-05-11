@@ -15,6 +15,10 @@ const router = Router();
  *    responses:
  *      '200':
  *        description: A successful response
+ *      '401':
+ *        description: Not Authorized
+ *      '500':
+ *        description: Internal server error
  */
 router.get('/', expense.getAll);
 

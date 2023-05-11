@@ -4,7 +4,7 @@ export const swaggerOptions = {
     info: {
       version: '1.0.0',
       title: 'BudgetBuddy API',
-      description: 'Budget Buddy API powered by Node.js and PosgreSQL.',
+      description: 'Powered by Node.js and PosgreSQL.',
       contact: {
         name: 'Alan Eicker',
         email: 'alaneicker@gmail.com',
