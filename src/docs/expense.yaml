@@ -1,0 +1,58 @@
+paths:
+  /expense:
+    get:
+      tags:
+        - expense
+      summary: Gets a list of expenses
+      responses:
+        200:
+          description: A successful response
+        401:
+          description: Not Authorized
+        500:
+          description: Internal server error
+    post:
+      tags:
+        - expense
+      summary:
+      responses:
+        200:
+          description: A successful response
+        401:
+          description: Not Authorized
+        500:
+          description: Internal server error
+  /expense/{expenseId}:
+    get:
+      tags:
+        - expense
+      summary: gets an expense by ID
+      responses:
+        200:
+          description: A successful response
+        401:
+          description: Not Authorized
+        500:
+          description: Internal server error
+    patch:
+      tags:
+        - expense
+      summary: Updates an expense
+      responses:
+        200:
+          description: A successful response
+        401:
+          description: Not Authorized
+        500:
+          description: Internal server error
+    delete:
+      tags:
+        - expense
+      summary: Deletes an expense
+      responses:
+        200:
+          description: A successful response
+        401:
+          description: Not Authorized
+        500:
+          description: Internal server error
