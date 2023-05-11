@@ -8,6 +8,7 @@ import './db';
 import { swaggerOptions } from './configs/swagger';
 import { validateToken } from './middleware/validateToken';
 import { setErrorResponse } from './helpers/response';
+import { kebabize } from './helpers/string';
 import { ERRORS } from './constants/errors';
 import * as routes from './routes';
 
@@ -31,11 +32,11 @@ app.use(
 app.use(`${process.env.BASE_URL}/auth`, routes.auth);
 
 // Creates API routes
-['user', 'expense' /*, 'expense-groups'*/].forEach((endpoint) => {
+['user', 'expense', 'expenseGroup'].forEach((route) => {
   app.use(
-    `${process.env.BASE_URL}/${endpoint}`,
+    `${process.env.BASE_URL}/${kebabize(route)}`,
     validateToken,
-    routes[endpoint],
+    routes[route],
   );
 });
 
