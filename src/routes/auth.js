@@ -34,7 +34,9 @@ const router = Router();
  *                type: integer
  *              message:
  *                type: string
- *
+ */
+
+/**
  * @swagger
  * /auth:
  *  post:

@@ -1,0 +1,57 @@
+paths:
+  /auth:
+    post:
+      tags:
+        - auth
+      summary: Authenticates a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/authRequestBody'
+      responses:
+        200:
+          description: A successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/successResponse'
+        401:
+          description: Not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/errorResponse'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/errorResponse'
+definitions:
+  authRequestBody:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+  successResponse:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          token:
+            type: string
+  errorResponse:
+    type: object
+    properties:
+      error:
+        type: object
+        properties:
+          code:
+            type: integer
+          message:
+            type: string

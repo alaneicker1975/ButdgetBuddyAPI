@@ -52,7 +52,9 @@ const router = Router();
  *                type: integer
  *              message:
  *                type: string
- *
+ */
+
+/**
  * @swagger
  * /user:
  *  post:

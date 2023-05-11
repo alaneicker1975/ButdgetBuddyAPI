@@ -33,5 +33,5 @@ export const swaggerOptions = {
       },
     ],
   },
-  apis: ['./src/routes/*.js'],
+  apis: ['./src/docs/*.yaml'],
 };
