@@ -31,7 +31,7 @@ app.use(
 app.use(`${process.env.BASE_URL}/auth`, routes.auth);
 
 // Creates API routes
-['user', 'expense'].forEach((endpoint) => {
+['user', 'expense' /*, 'expense-groups'*/].forEach((endpoint) => {
   app.use(
     `${process.env.BASE_URL}/${endpoint}`,
     validateToken,
