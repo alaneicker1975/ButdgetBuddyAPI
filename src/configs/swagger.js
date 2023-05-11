@@ -10,10 +10,9 @@ export const swaggerOptions = {
         email: 'alaneicker@gmail.com',
       },
     },
-    basePath: process.env.BASE_URL,
     servers: [
       {
-        url: '/api/v1',
+        url: process.env.BASE_URL,
         description: 'Local',
       },
     ],
