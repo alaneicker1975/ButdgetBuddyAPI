@@ -9,7 +9,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/requestBody'
+              $ref: '#/definitions/userRequestBody'
       responses:
         200:
           description: A successful response
@@ -45,7 +45,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/requestBody'
+              $ref: '#/definitions/userRequestBody'
       responses:
         200:
           description: A successful response

@@ -9,7 +9,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/requestBody'
+              $ref: '#/definitions/authRequestBody'
       responses:
         200:
           description: A successful response
@@ -30,7 +30,7 @@ paths:
               schema:
                 $ref: '#/definitions/errorResponse'
 definitions:
-  requestBody:
+  authRequestBody:
     type: object
     properties:
       username:
