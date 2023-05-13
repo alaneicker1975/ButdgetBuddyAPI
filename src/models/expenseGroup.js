@@ -10,8 +10,8 @@ export const getExpenseGroupById = async (expenseGroupId) => {
     );
 
     const { rows: expenses } = await pool.query(
-      `SELECT expense.*,
-        expense_group_expense.expense_group_id,
+      `SELECT 
+        expense.*,
         expense_group_expense.balance,
         expense_group_expense.due_date,
         expense_group_expense.is_paid,
@@ -19,9 +19,6 @@ export const getExpenseGroupById = async (expenseGroupId) => {
       FROM expense
         INNER JOIN expense_group_expense
                 ON expense.expense_id = expense_group_expense.expense_id
-        INNER JOIN expense_group
-                ON expense_group_expense.expense_group_id =
-                   expense_group.expense_group_id
       WHERE expense_group_expense.expense_group_id = ${expenseGroupId}`,
     );
 
