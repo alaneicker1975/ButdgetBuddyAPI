@@ -3,22 +3,13 @@ import { setUpdatePlaceholders, getValues } from '../helpers/query';
 
 export const getExpenseGroupById = async (expenseGroupId) => {
   try {
-    const { rows: data } = await pool.query(
+    const { rows: expenseGroup } = await pool.query(
       `SELECT * 
        FROM expense_group
        WHERE expense_group_id = ${expenseGroupId}`,
     );
 
-    return { data: data[0] };
-  } catch (error) {
-    error.status = 500;
-    return { error };
-  }
-};
-
-export const getAllExpensesByGroupId = async (expenseGroupId) => {
-  try {
-    const { rows: data } = await pool.query(
+    const { rows: expenses } = await pool.query(
       `SELECT expense.*,
         expense_group_expense.expense_group_id,
         expense_group_expense.balance,
@@ -34,7 +25,12 @@ export const getAllExpensesByGroupId = async (expenseGroupId) => {
       WHERE expense_group_expense.expense_group_id = ${expenseGroupId}`,
     );
 
-    return { data };
+    return {
+      data: {
+        ...expenseGroup[0],
+        expenses,
+      },
+    };
   } catch (error) {
     error.status = 500;
     return { error };
