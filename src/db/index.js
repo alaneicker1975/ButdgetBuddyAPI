@@ -3,7 +3,7 @@ import { Pool, types } from 'pg';
 
 dotenv.config();
 
-// PostgreSQL DECIMAL/NUMERIC data types get returned as
+// PostgreSQL DECIMAL data types get returned as
 // strings. This converts the returned value to a number.
 types.setTypeParser(1700, (val) => {
   return parseFloat(val);
