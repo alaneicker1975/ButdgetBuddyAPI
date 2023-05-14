@@ -22,9 +22,7 @@ export const getExpenseGroupsByUserAccountId = async (userAccountId) => {
        WHERE user_account_id = '${userAccountId}'`,
     );
 
-    return {
-      data: data[0],
-    };
+    return { data };
   } catch (error) {
     error.status = 500;
     return { error };

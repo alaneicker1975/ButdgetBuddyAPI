@@ -1,6 +1,6 @@
 CREATE TABLE
   IF NOT EXISTS user_account (
-    user_account_id UUID NOT NULL PRIMARY KEY,
+    user_account_id UUID PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(60) NOT NULL,
     email VARCHAR(100) NOT NULL
@@ -9,14 +9,14 @@ CREATE TABLE
 
 CREATE TABLE
   IF NOT EXISTS expense (
-    expense_id SERIAL PRIMARY KEY,
+    expense_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(50) NOT NULL
   );
 
 
 CREATE TABLE
   IF NOT EXISTS expense_group (
-    expense_group_id SERIAL PRIMARY KEY,
+    expense_group_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_account_id UUID NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
