@@ -5,6 +5,6 @@ import { validateRequestBody } from '../middleware/validateRequestBody';
 
 const router = Router();
 
-router.get('/:expenseGroupId', expenseGroup.getExpenseGroupById);
+router.get('/:userAccountId', expenseGroup.getExpenseGroupsByUserAccountId);
 
 export default router;

@@ -1,10 +1,10 @@
 import * as expenseGroup from '../models/expenseGroup';
 
-export const getExpenseGroupById = async (req, res, next) => {
-  const { expenseGroupId } = req.params;
+export const getExpenseGroupsByUserAccountId = async (req, res, next) => {
+  const { userAccountId } = req.params;
 
-  const { data, error } = await expenseGroup.getExpenseGroupById(
-    expenseGroupId,
+  const { data, error } = await expenseGroup.getExpenseGroupsByUserAccountId(
+    userAccountId,
   );
 
   if (error) return next(error);
