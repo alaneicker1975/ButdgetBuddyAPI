@@ -5,14 +5,14 @@ import { expenseSchema } from '../schemas/expenses';
 
 const router = Router();
 
-router.get('/', expense.getAll);
-router.post('/', validateRequestBody(expenseSchema), expense.insertOne);
-router.get('/:expenseId', expense.getOne);
+router.get('/', expense.getAllExpenses);
+router.post('/', validateRequestBody(expenseSchema), expense.createExpense);
+router.get('/:expenseId', expense.getExpenseById);
 router.patch(
   '/:expenseId',
   validateRequestBody(expenseSchema),
-  expense.updateOne,
+  expense.updateExpense,
 );
-router.delete('/:expenseId', expense.deleteOne);
+router.delete('/:expenseId', expense.deleteExpense);
 
 export default router;

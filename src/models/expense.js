@@ -1,7 +1,7 @@
 import { pool } from '../db';
 import { setUpdatePlaceholders, getValues } from '../helpers/query';
 
-export const getAll = async () => {
+export const getAllExpenses = async () => {
   try {
     const { rows: data } = await pool.query(
       `SELECT * 
@@ -16,7 +16,7 @@ export const getAll = async () => {
   }
 };
 
-export const getOne = async (expenseId) => {
+export const getExpenseById = async (expenseId) => {
   try {
     const { rows: data } = await pool.query(
       `SELECT * 
@@ -31,7 +31,7 @@ export const getOne = async (expenseId) => {
   }
 };
 
-export const insertOne = async (body) => {
+export const createExpense = async (body) => {
   try {
     const { rows } = await pool.query(
       `INSERT INTO expense (name)
@@ -47,7 +47,7 @@ export const insertOne = async (body) => {
   }
 };
 
-export const updateOne = async (expenseId, body) => {
+export const updateExpense = async (expenseId, body) => {
   try {
     const { rows } = await pool.query(
       `UPDATE expense
@@ -64,7 +64,7 @@ export const updateOne = async (expenseId, body) => {
   }
 };
 
-export const deleteOne = async (expenseId) => {
+export const deleteExpense = async (expenseId) => {
   try {
     const { rows } = await pool.query(
       `DELETE FROM expense
