@@ -10,8 +10,7 @@ import { validateToken } from './middleware/validateToken';
 import { setErrorResponse } from './helpers/response';
 import { toRouteSegment } from './helpers/string';
 import { ERRORS } from './constants/errors';
-import * as nonSecureRoutes from './routes/nonSecureRoutes';
-import * as secureRoutes from './routes/secureRoutes';
+import { nonSecureRoutes, secureRoutes } from './routes';
 
 const app = express();
 const port = process.env.PORT || 9000;
