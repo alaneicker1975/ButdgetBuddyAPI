@@ -1,7 +1,7 @@
 import * as expense from '../models/expense';
 
 export const getAllExpenses = async (req, res, next) => {
-  const { data, error } = await expense.getAll();
+  const { data, error } = await expense.getAllExpenses();
 
   if (error) return next(error);
 
@@ -10,7 +10,7 @@ export const getAllExpenses = async (req, res, next) => {
 
 export const getExpenseById = async (req, res, next) => {
   const { expenseId } = req.params;
-  const { data, error } = await expense.getOne(expenseId);
+  const { data, error } = await expense.getExpenseById(expenseId);
 
   if (error) return next(error);
 
@@ -19,7 +19,7 @@ export const getExpenseById = async (req, res, next) => {
 
 export const createExpense = async (req, res, next) => {
   const { body } = req;
-  const { data, error } = await expense.insertOne(body);
+  const { data, error } = await expense.createExpense(body);
 
   if (error) return next(error);
 
@@ -29,7 +29,7 @@ export const createExpense = async (req, res, next) => {
 export const updateExpense = async (req, res, next) => {
   const { body } = req;
   const { expenseId } = req.params;
-  const { data, error } = await expense.updateOne(expenseId, body);
+  const { data, error } = await expense.updateExpense(expenseId, body);
 
   if (error) return next(error);
 
@@ -38,7 +38,7 @@ export const updateExpense = async (req, res, next) => {
 
 export const deleteExpense = async (req, res, next) => {
   const { expenseId } = req.params;
-  const { data, error } = await expense.deleteOne(expenseId);
+  const { data, error } = await expense.deleteExpense(expenseId);
 
   if (error) return next(error);
 
