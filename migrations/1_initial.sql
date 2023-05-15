@@ -43,7 +43,7 @@ VALUES
   (
     '973ad0cc-8709-4913-b6ad-43db8645e521',
     'alaneicker',
-    'rEK1ecacw.7.c',
+    '$2b$10$aNmICXxq2jzANlX/WrIhNudRR8v43EvxKmBxoFT1UkQmSUHw5cLP.',
     'alaneicker@gmail.com'
   );
 

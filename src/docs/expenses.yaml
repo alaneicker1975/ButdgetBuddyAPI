@@ -1,8 +1,8 @@
 paths:
-  /expense:
+  /expenses:
     get:
       tags:
-        - expense
+        - expenses
       summary: Gets a list of expenses
       responses:
         200:
@@ -13,7 +13,7 @@ paths:
           description: Internal server error
     post:
       tags:
-        - expense
+        - expenses
       summary:
       responses:
         200:
@@ -22,10 +22,10 @@ paths:
           description: Not Authorized
         500:
           description: Internal server error
-  /expense/{expenseId}:
+  /expenses/{expenseId}:
     get:
       tags:
-        - expense
+        - expenses
       summary: gets an expense by ID
       responses:
         200:
@@ -36,7 +36,7 @@ paths:
           description: Internal server error
     patch:
       tags:
-        - expense
+        - expenses
       summary: Updates an expense
       responses:
         200:
@@ -47,7 +47,7 @@ paths:
           description: Internal server error
     delete:
       tags:
-        - expense
+        - expenses
       summary: Deletes an expense
       responses:
         200:

@@ -1,8 +1,8 @@
 paths:
-  /user:
+  /users:
     post:
       tags:
-        - user
+        - users
       summary: Creates a new user
       requestBody:
         required: true
@@ -29,10 +29,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/definitions/errorResponse'
-  /user/{userId}:
+  /users/{userId}:
     patch:
       tags:
-        - user
+        - users
       summary: Updates a user
       parameters:
         - in: path

@@ -8,9 +8,10 @@ import './db';
 import { swaggerOptions } from './configs/swagger';
 import { validateToken } from './middleware/validateToken';
 import { setErrorResponse } from './helpers/response';
-import { kebabize } from './helpers/string';
+import { toRouteSegment } from './helpers/string';
 import { ERRORS } from './constants/errors';
-import * as routes from './routes';
+import * as nonSecureRoutes from './routes/nonSecureRoutes';
+import * as secureRoutes from './routes/secureRoutes';
 
 const app = express();
 const port = process.env.PORT || 9000;
@@ -28,15 +29,20 @@ app.use(
   swaggerUI.setup(swaggerDocs),
 );
 
-// Auth route
-app.use(`${process.env.BASE_URL}/auth`, routes.auth);
-
-// Creates API routes
-['user', 'expense', 'expenseGroup'].forEach((route) => {
+// Creates non-secure API routes
+Object.keys(nonSecureRoutes).forEach((route) => {
   app.use(
-    `${process.env.BASE_URL}/${kebabize(route)}`,
+    `${process.env.BASE_URL}/${toRouteSegment(route)}`,
+    nonSecureRoutes[route],
+  );
+});
+
+// Creates Secure API routes
+Object.keys(secureRoutes).forEach((route) => {
+  app.use(
+    `${process.env.BASE_URL}/${toRouteSegment(route)}`,
     validateToken,
-    routes[route],
+    secureRoutes[route],
   );
 });
 

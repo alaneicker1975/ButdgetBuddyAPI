@@ -2,6 +2,10 @@ import bcrypt from 'bcrypt';
 import { pool } from '../db';
 import { createError } from '../helpers/error';
 
+// bcrypt.hash('<password>', 10, function (err, hash) {
+//   console.log(hash);
+// });
+
 export const authenticateUser = async (body) => {
   try {
     const { rows: data } = await pool.query(
