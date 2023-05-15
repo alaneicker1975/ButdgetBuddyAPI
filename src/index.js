@@ -8,7 +8,7 @@ import './db';
 import { swaggerOptions } from './configs/swagger';
 import { validateToken } from './middleware/validateToken';
 import { setErrorResponse } from './helpers/response';
-import { toRouteSegment } from './helpers/string';
+import { toKebabCase } from './helpers/string';
 import { ERRORS } from './constants/errors';
 import { nonSecureRoutes, secureRoutes } from './routes';
 
@@ -31,7 +31,7 @@ app.use(
 // Creates non-secure API routes
 Object.keys(nonSecureRoutes).forEach((route) => {
   app.use(
-    `${process.env.BASE_URL}/${toRouteSegment(route)}`,
+    `${process.env.BASE_URL}/${toKebabCase(route)}`,
     nonSecureRoutes[route],
   );
 });
@@ -39,7 +39,7 @@ Object.keys(nonSecureRoutes).forEach((route) => {
 // Creates Secure API routes
 Object.keys(secureRoutes).forEach((route) => {
   app.use(
-    `${process.env.BASE_URL}/${toRouteSegment(route)}`,
+    `${process.env.BASE_URL}/${toKebabCase(route)}`,
     validateToken,
     secureRoutes[route],
   );

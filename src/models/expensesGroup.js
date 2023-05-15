@@ -37,3 +37,18 @@ export const getExpensesByExpenseGroupId = async (expenseGroupId) => {
     return { error };
   }
 };
+
+export const getExpenseGroupById = async (expenseGroupId) => {
+  try {
+    const { rows: data } = await pool.query(
+      `SELECT * 
+       FROM expense_group
+       WHERE expense_group_id = '${expenseGroupId}'`,
+    );
+
+    return { data: data[0] };
+  } catch (error) {
+    error.status = 500;
+    return { error };
+  }
+};
