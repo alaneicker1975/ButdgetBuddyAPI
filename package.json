@@ -2,9 +2,9 @@
   "name": "budgetbuddyapi",
   "version": "1.0.0",
   "description": "API for BudgetBuddy",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "babel src/**/*.js -d dist",
+    "build": "babel src/index.js src -d dist --copy-files",
     "dev": "nodemon --exec babel-node src/index.js",
     "start": "node dist/index.js",
     "migrate": "node ./runMigration"
