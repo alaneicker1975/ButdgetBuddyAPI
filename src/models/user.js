@@ -4,7 +4,6 @@ import { hashPassword } from '../helpers/password';
 export const createUser = async (body) => {
   try {
     const { email, username, password } = body;
-
     const hashedPassword = await hashPassword(password);
 
     await pool.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
