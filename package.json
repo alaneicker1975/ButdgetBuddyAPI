@@ -4,7 +4,7 @@
   "description": "API for BudgetBuddy",
   "main": "build/index.js",
   "scripts": {
-    "build": "babel src --out-dir build --copy-files --no-copy-ignored",
+    "build": "NODE_ENV=production babel src --out-dir build --copy-files --no-copy-ignored",
     "dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
     "start": "NODE_ENV=production node build/index.js",
     "migrate": "node ./runMigration",
