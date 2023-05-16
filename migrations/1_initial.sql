@@ -37,6 +37,9 @@ CREATE TABLE
   );
 
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
 INSERT INTO
   user_account (user_account_id, username, password, email)
 VALUES
