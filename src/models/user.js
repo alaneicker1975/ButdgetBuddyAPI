@@ -5,7 +5,7 @@ export const createUser = async (body) => {
   try {
     const { username, password: pswd, email } = body;
 
-    const password = await hashPassword(pswd, 10);
+    const password = await hashPassword(pswd);
 
     await pool.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
 
