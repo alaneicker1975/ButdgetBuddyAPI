@@ -21,12 +21,16 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
+console.log(process.env.NODE_ENV);
+
 // API documentation
-app.use(
-  `${process.env.BASE_URL}/api-docs`,
-  swaggerUI.serve,
-  swaggerUI.setup(swaggerDocs),
-);
+if (process.env.NODE_ENV === 'development') {
+  app.use(
+    `${process.env.BASE_URL}/api-docs`,
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerDocs),
+  );
+}
 
 // Creates non-secure API routes
 Object.keys(nonSecureRoutes).forEach((route) => {

@@ -5,8 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "build": "babel src/index.js src -d build --copy-files",
-    "dev": "nodemon --exec babel-node src/index.js",
-    "start": "node build/index.js",
+    "dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "start": "NODE_ENV=production node build/index.js",
     "migrate": "node ./runMigration"
   },
   "repository": {
