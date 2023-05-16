@@ -10,10 +10,9 @@ export const createUser = async (body) => {
     await pool.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
 
     const { rows } = await pool.query(
-      `INSERT INTO
-          user_account (user_account_id, username, password, email)
-        VALUES (uuid_generate_v4(), $1, $2, $3)
-        RETURNING user_account_id`,
+      `INSERT INTO user_account (user_account_id, username, password, email)
+       VALUES (uuid_generate_v4(), $1, $2, $3)
+       RETURNING user_account_id`,
       [username, password, email],
     );
 
