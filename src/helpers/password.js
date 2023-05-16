@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
-export const hashPassword = async (pswd, saltRounds = 12) => {
+export const hashPassword = async (password, saltRounds = 12) => {
   const salt = await bcrypt.genSalt(saltRounds);
-  const password = await bcrypt.hash(pswd, salt);
-  return password;
+  const hashedPassword = await bcrypt.hash(password, salt);
+  return hashedPassword;
 };
