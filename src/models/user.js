@@ -26,6 +26,17 @@ export const updateUser = async (userId, body) => {
   // Updates a user
 };
 
-export const deleteUser = async (userId) => {
-  // Deletes a user
+export const deleteUser = async (userAccountId) => {
+  try {
+    const { rows } = await pool.query(
+      `DELETE FROM user_account
+       WHERE user_account_id = '${userAccountId}'
+       RETURNING user_account_id`,
+    );
+
+    return { data: { deleted_id: rows[0].user_account_id } };
+  } catch (error) {
+    error.status = 500;
+    return { error };
+  }
 };

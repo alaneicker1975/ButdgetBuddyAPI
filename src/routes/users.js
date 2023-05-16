@@ -6,7 +6,11 @@ import { userSchema } from '../schemas/user';
 const router = Router();
 
 router.post('/', validateRequestBody(userSchema), user.createUser);
-router.patch('/:userId', validateRequestBody(userSchema), user.updateUser);
-router.delete('/:userId', user.deleteUser);
+router.patch(
+  '/:userAccountId',
+  validateRequestBody(userSchema),
+  user.updateUser,
+);
+router.delete('/:userAccountId', user.deleteUser);
 
 export default router;

@@ -14,5 +14,10 @@ export const updateUser = async (req, res, next) => {
 };
 
 export const deleteUser = async (req, res, next) => {
-  // Deletes a user
+  const { userAccountId } = req.params;
+  const { data, error } = await user.deleteUser(userAccountId);
+
+  if (error) return next(error);
+
+  res.status(201).send({ data });
 };
