@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as user from '../controllers/user';
+import * as user from '../controllers/users';
 import { validateRequestBody } from '../middleware/validateRequestBody';
 import { userSchema, updateUserSchema } from '../schemas/user';
 

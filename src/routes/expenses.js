@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as expense from '../controllers/expense';
+import * as expense from '../controllers/expenses';
 import { validateRequestBody } from '../middleware/validateRequestBody';
 import { expenseSchema } from '../schemas/expenses';
 

@@ -1,4 +1,4 @@
-import * as expenseGroup from '../models/expensesGroup';
+import * as expenseGroup from '../models/expensesGroups';
 
 export const getExpenseGroupsByUserAccountId = async (req, res, next) => {
   const { userAccountId } = req.params;
