@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import * as user from '../controllers/user';
 import { validateRequestBody } from '../middleware/validateRequestBody';
-import { userSchema } from '../schemas/user';
+import { userSchema, updateUserSchema } from '../schemas/user';
 
 const router = Router();
 
 router.post('/', validateRequestBody(userSchema), user.createUser);
 router.patch(
   '/:userAccountId',
-  validateRequestBody(userSchema),
+  validateRequestBody(updateUserSchema),
   user.updateUser,
 );
 router.delete('/:userAccountId', user.deleteUser);

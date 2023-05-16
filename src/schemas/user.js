@@ -6,3 +6,12 @@ export const userSchema = {
     email: { type: 'string' },
   },
 };
+
+export const updateUserSchema = {
+  type: 'Object',
+  properties: {
+    username: { type: 'string' },
+    oldPassword: { type: 'string' },
+    newPassword: { type: 'string' },
+  },
+};

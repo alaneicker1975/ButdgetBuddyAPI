@@ -10,7 +10,12 @@ export const createUser = async (req, res, next) => {
 };
 
 export const updateUser = async (req, res, next) => {
-  // Updates a user
+  const { body } = req;
+  const { data, error } = await user.updateUser(body);
+
+  if (error) return next(error);
+
+  res.status(201).send({ data });
 };
 
 export const deleteUser = async (req, res, next) => {
