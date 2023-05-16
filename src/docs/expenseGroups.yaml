@@ -1,0 +1,28 @@
+paths:
+  /expense-groups/{userAccountId}:
+    get:
+      tags:
+        - expense-groups
+      summary: Gets all expense groups
+    post:
+      tags:
+        - expense-groups
+      summary: Creates a new expense group associated with user ID
+  /expense-groups/{userAccountId}/group/{expenseGroupId}:
+    get:
+      tags:
+        - expense-groups
+      summary: Gets one expense group associated with user ID
+    patch:
+      tags:
+        - expense-groups
+      summary: Updates one expense group associated with user ID
+    delete:
+      tags:
+        - expense-groups
+      summary: Deletes one expense group associated with user ID
+  /expense-groups/{userAccountId}/expenses/{expenseGroupId}:
+    get:
+      tags:
+        - expense-groups
+      summary: Gets all expenses associated with an expense group ID

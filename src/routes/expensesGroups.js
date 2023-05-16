@@ -5,8 +5,6 @@ import { validateRequestBody } from '../middleware/validateRequestBody';
 
 const router = Router();
 
-// Path: /expense-groups
-
 // Gets all expense groups
 router.get('/:userAccountId', expenseGroup.getExpenseGroupsByUserAccountId);
 // Creates a new expense group associated with user id

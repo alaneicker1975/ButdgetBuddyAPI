@@ -67,7 +67,7 @@ paths:
                 $ref: '#/definitions/errorResponse'
     delete:
       tags:
-        - user
+        - users
       summary: Deletes a user
       parameters:
         - in: path
