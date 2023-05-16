@@ -29,7 +29,7 @@ export const updateUser = async (body) => {
   // 2. validate user-provided old password vs stored password
   // 3. If passwords match, encrypt and update record with new password
   // 3a. Return 200 with updated_id
-  // 4. If passwords match, return 401
+  // 4. If passwords don't match, return 401
 };
 
 export const deleteUser = async (userAccountId) => {
