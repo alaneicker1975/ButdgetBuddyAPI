@@ -1,8 +1,12 @@
-import { setErrorResponse } from '../helpers/response';
 import * as user from '../models/user';
 
 export const createUser = async (req, res, next) => {
-  // Inserts a user
+  const { body } = req;
+  const { data, error } = await user.createUser(body);
+
+  if (error) return next(error);
+
+  res.status(201).send({ data });
 };
 
 export const updateUser = async (req, res, next) => {

@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import * as auth from '../controllers/auth';
 import { validateRequestBody } from '../middleware/validateRequestBody';
-import { userSchema } from '../schemas/user';
+import { authSchema } from '../schemas/auth';
 
 const router = Router();
 
-router.post('/', validateRequestBody(userSchema), auth.authenticateUser);
+router.post('/', validateRequestBody(authSchema), auth.authenticateUser);
 
 export default router;
