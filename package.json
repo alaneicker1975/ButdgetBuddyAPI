@@ -46,5 +46,11 @@
     "nodemon": "^2.0.22",
     "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
