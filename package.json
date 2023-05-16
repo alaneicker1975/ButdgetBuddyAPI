@@ -7,7 +7,8 @@
     "build": "babel src --out-dir build --copy-files --no-copy-ignored",
     "dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
     "start": "NODE_ENV=production node build/index.js",
-    "migrate": "node ./runMigration"
+    "migrate": "node ./runMigration",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
