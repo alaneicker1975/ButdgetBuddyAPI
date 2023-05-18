@@ -34,8 +34,8 @@ export const updateUser = async (userAccountId, body) => {
 
     const { rows: user } = await pool.query(
       `SELECT password
-     FROM user_account
-     WHERE user_account_id = '${userAccountId}'
+       FROM user_account
+       WHERE user_account_id = '${userAccountId}'
     `,
     );
 
