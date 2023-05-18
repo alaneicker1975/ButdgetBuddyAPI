@@ -30,7 +30,6 @@ export const createUser = async (body) => {
 
 export const updateUser = async (userAccountId, body) => {
   try {
-    console.log(await hashPassword('qawsed44'));
     const { oldPassword, newPassword } = body;
 
     const { rows: user } = await pool.query(
