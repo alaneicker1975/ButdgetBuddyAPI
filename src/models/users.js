@@ -30,6 +30,7 @@ export const createUser = async (body) => {
 
 export const updateUser = async (userAccountId, body) => {
   try {
+    console.log(await hashPassword('qawsed44'));
     const { oldPassword, newPassword } = body;
 
     const { rows: user } = await pool.query(
@@ -47,7 +48,7 @@ export const updateUser = async (userAccountId, body) => {
       throw createError(401);
     }
 
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword = await hashPassword(newPassword);
 
     const { rows: updatedUser } = await pool.query(
       `UPDATE user_account
