@@ -39,9 +39,7 @@ export const updateUser = async (userAccountId, body) => {
     `,
     );
 
-    const { password } = user[0];
-
-    const isValidUser = await bcrypt.compare(oldPassword, password);
+    const isValidUser = await bcrypt.compare(oldPassword, user[0].password);
 
     if (!isValidUser) {
       throw createError(401);
