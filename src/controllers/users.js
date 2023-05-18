@@ -10,8 +10,9 @@ export const createUser = async (req, res, next) => {
 };
 
 export const updateUser = async (req, res, next) => {
+  const { userAccountId } = req.params;
   const { body } = req;
-  const { data, error } = await user.updateUser(body);
+  const { data, error } = await user.updateUser(userAccountId, body);
 
   if (error) return next(error);
 

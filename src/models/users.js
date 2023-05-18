@@ -1,5 +1,11 @@
+import bcrypt from 'bcrypt';
 import { pool } from '../db';
+import { createError } from '../helpers/error';
 import { hashPassword } from '../helpers/password';
+
+// bcrypt.hash('qawsed44', 12, function (err, hash) {
+//   console.log(hash);
+// });
 
 export const createUser = async (body) => {
   try {
@@ -22,14 +28,41 @@ export const createUser = async (body) => {
   }
 };
 
-export const updateUser = async (body) => {
-  const { username, oldPassword, newPassword } = body;
+export const updateUser = async (userAccountId, body) => {
+  try {
+    const { oldPassword, newPassword } = body;
 
-  // 1. Query user_account table and find user by username
-  // 2. validate user-provided old password vs stored password
-  // 3. If passwords match, encrypt and update record with new password
-  // 3a. Return 200 with updated_id
-  // 4. If passwords don't match, return 401
+    const { rows: user } = await pool.query(
+      `SELECT password
+     FROM user_account
+     WHERE user_account_id = '${userAccountId}'
+    `,
+    );
+
+    const { password } = user[0];
+
+    const isValidUser = await bcrypt.compare(oldPassword, password);
+
+    if (!isValidUser) {
+      throw createError(401);
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    const { rows: updatedUser } = await pool.query(
+      `UPDATE user_account
+       SET password = $1
+       WHERE user_account_id = '${userAccountId}' 
+       RETURNING user_account_id
+      `,
+      [hashedPassword],
+    );
+
+    return { data: { updated_id: updatedUser[0].user_account_id } };
+  } catch (error) {
+    error.status = error.status || 500;
+    return { error };
+  }
 };
 
 export const deleteUser = async (userAccountId) => {
