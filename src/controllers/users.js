@@ -1,8 +1,8 @@
-import * as user from '../models/users';
+import * as userService from '../services/users';
 
 export const createUser = async (req, res, next) => {
   const { body } = req;
-  const { data, error } = await user.createUser(body);
+  const { data, error } = await userService.createUser(body);
 
   if (error) return next(error);
 
@@ -12,7 +12,7 @@ export const createUser = async (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   const { userAccountId } = req.params;
   const { body } = req;
-  const { data, error } = await user.updateUser(userAccountId, body);
+  const { data, error } = await userService.updateUser(userAccountId, body);
 
   if (error) return next(error);
 
@@ -21,7 +21,7 @@ export const updateUser = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
   const { userAccountId } = req.params;
-  const { data, error } = await user.deleteUser(userAccountId);
+  const { data, error } = await userService.deleteUser(userAccountId);
 
   if (error) return next(error);
 

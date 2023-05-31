@@ -1,11 +1,10 @@
-import * as expenseGroup from '../models/expensesGroups';
+import * as expenseGroupService from '../services/expensesGroups';
 
 export const getExpenseGroupsByUserAccountId = async (req, res, next) => {
   const { userAccountId } = req.params;
 
-  const { data, error } = await expenseGroup.getExpenseGroupsByUserAccountId(
-    userAccountId,
-  );
+  const { data, error } =
+    await expenseGroupService.getExpenseGroupsByUserAccountId(userAccountId);
 
   if (error) return next(error);
 
@@ -19,7 +18,7 @@ export const createExpenseGroup = async (req, res, next) => {
 export const getExpenseGroupById = async (req, res, next) => {
   const { expenseGroupId } = req.params;
 
-  const { data, error } = await expenseGroup.getExpenseGroupById(
+  const { data, error } = await expenseGroupService.getExpenseGroupById(
     expenseGroupId,
   );
 
@@ -31,7 +30,7 @@ export const getExpenseGroupById = async (req, res, next) => {
 export const updateExpenseGroupById = async (req, res, next) => {
   const { expenseGroupId } = req.params;
 
-  // const { data, error } = await expenseGroup.getExpenseGroupById(
+  // const { data, error } = await expenseGroupService.getExpenseGroupById(
   //   expenseGroupId,
   // );
 
@@ -43,7 +42,7 @@ export const updateExpenseGroupById = async (req, res, next) => {
 export const deleteExpenseGroupById = async (req, res, next) => {
   const { expenseGroupId } = req.params;
 
-  // const { data, error } = await expenseGroup.getExpenseGroupById(
+  // const { data, error } = await expenseGroupService.getExpenseGroupById(
   //   expenseGroupId,
   // );
 
@@ -55,7 +54,7 @@ export const deleteExpenseGroupById = async (req, res, next) => {
 export const getExpensesByExpenseGroupId = async (req, res, next) => {
   const { expenseGroupId } = req.params;
 
-  const { data, error } = await expenseGroup.getExpensesByExpenseGroupId(
+  const { data, error } = await expenseGroupService.getExpensesByExpenseGroupId(
     expenseGroupId,
   );
 

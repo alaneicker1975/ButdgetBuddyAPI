@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import * as auth from '../models/auth';
+import * as authService from '../services/auth';
 
 export const authenticateUser = async (req, res, next) => {
-  const { data, error } = await auth.authenticateUser(req.body);
+  const { data, error } = await authService.authenticateUser(req.body);
 
   if (error) return next(error);
 

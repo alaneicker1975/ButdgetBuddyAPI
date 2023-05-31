@@ -1,4 +1,4 @@
-import * as expense from '../models/expenses';
+import * as expense from '../services/expenses';
 
 export const getAllExpenses = async (req, res, next) => {
   const { data, error } = await expense.getAllExpenses();

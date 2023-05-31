@@ -7,6 +7,7 @@ const router = Router();
 
 // Gets all expense groups
 router.get('/:userAccountId', expenseGroup.getExpenseGroupsByUserAccountId);
+
 // Creates a new expense group associated with user id
 router.post('/:userAccountId', expenseGroup.createExpenseGroup);
 
