@@ -57,7 +57,6 @@ export const createExpenseGroup = async (body, token) => {
   try {
     const userAccountId = getUserAccountId(token);
     const values = [userAccountId, ...getValues(body)];
-    console.log(setInsertPlaceholders(values));
 
     const { rows } = await pool.query(
       `INSERT INTO expense_group (user_account_id, start_date, end_date, total_budget)
