@@ -31,7 +31,7 @@ router.delete(
 
 // Gets all expenses associated with an expense group id
 router.get(
-  '/:userAccountId/expenses/:expenseGroupId',
+  '/:userAccountId/group/:expenseGroupId/expenses',
   expenseGroup.getExpensesByExpenseGroupId,
 );
 
