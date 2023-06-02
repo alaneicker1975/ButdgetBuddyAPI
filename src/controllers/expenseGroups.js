@@ -1,30 +1,45 @@
-import * as expenseGroupService from '../services/expensesGroups';
+import * as expenseGroupService from '../services/expenseGroups';
 
 export const getExpenseGroupsByUserAccountId = async (req, res, next) => {
-  const { userAccountId } = req.params;
+  try {
+    const { userAccountId } = req.params;
 
-  const { data, error } =
-    await expenseGroupService.getExpenseGroupsByUserAccountId(userAccountId);
+    const { data, error } =
+      await expenseGroupService.getExpenseGroupsByUserAccountId(userAccountId);
 
-  if (error) return next(error);
+    if (error) return next(error);
 
-  return res.status(200).send({ data });
+    return res.status(200).send({ data });
+  } catch (error) {
+    error.status = 500;
+    return next(error);
+  }
 };
 
 export const createExpenseGroup = async (req, res, next) => {
-  const { userAccountId } = req.params;
+  try {
+    const { userAccountId } = req.params;
+  } catch (error) {
+    error.status = 500;
+    return next(error);
+  }
 };
 
 export const getExpenseGroupById = async (req, res, next) => {
-  const { expenseGroupId } = req.params;
+  try {
+    const { expenseGroupId } = req.params;
 
-  const { data, error } = await expenseGroupService.getExpenseGroupById(
-    expenseGroupId,
-  );
+    const { data, error } = await expenseGroupService.getExpenseGroupById(
+      expenseGroupId,
+    );
 
-  if (error) return next(error);
+    if (error) return next(error);
 
-  return res.status(200).send({ data });
+    return res.status(200).send({ data });
+  } catch (error) {
+    error.status = 500;
+    return next(error);
+  }
 };
 
 export const updateExpenseGroupById = async (req, res, next) => {
@@ -52,13 +67,17 @@ export const deleteExpenseGroupById = async (req, res, next) => {
 };
 
 export const getExpensesByExpenseGroupId = async (req, res, next) => {
-  const { expenseGroupId } = req.params;
+  try {
+    const { expenseGroupId } = req.params;
 
-  const { data, error } = await expenseGroupService.getExpensesByExpenseGroupId(
-    expenseGroupId,
-  );
+    const { data, error } =
+      await expenseGroupService.getExpensesByExpenseGroupId(expenseGroupId);
 
-  if (error) return next(error);
+    if (error) return next(error);
 
-  return res.status(200).send({ data });
+    return res.status(200).send({ data });
+  } catch (error) {
+    error.status = 500;
+    return next(error);
+  }
 };

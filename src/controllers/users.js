@@ -1,29 +1,44 @@
 import * as userService from '../services/users';
 
 export const createUser = async (req, res, next) => {
-  const { body } = req;
-  const { data, error } = await userService.createUser(body);
+  try {
+    const { body } = req;
+    const { data, error } = await userService.createUser(body);
 
-  if (error) return next(error);
+    if (error) return next(error);
 
-  res.status(201).send({ data });
+    res.status(201).send({ data });
+  } catch (error) {
+    error.status = 500;
+    return next(error);
+  }
 };
 
 export const updateUser = async (req, res, next) => {
-  const { userAccountId } = req.params;
-  const { body } = req;
-  const { data, error } = await userService.updateUser(userAccountId, body);
+  try {
+    const { userAccountId } = req.params;
+    const { body } = req;
+    const { data, error } = await userService.updateUser(userAccountId, body);
 
-  if (error) return next(error);
+    if (error) return next(error);
 
-  res.status(201).send({ data });
+    res.status(201).send({ data });
+  } catch (error) {
+    error.status = 500;
+    return next(error);
+  }
 };
 
 export const deleteUser = async (req, res, next) => {
-  const { userAccountId } = req.params;
-  const { data, error } = await userService.deleteUser(userAccountId);
+  try {
+    const { userAccountId } = req.params;
+    const { data, error } = await userService.deleteUser(userAccountId);
 
-  if (error) return next(error);
+    if (error) return next(error);
 
-  res.status(201).send({ data });
+    res.status(201).send({ data });
+  } catch (error) {
+    error.status = 500;
+    return next(error);
+  }
 };

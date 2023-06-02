@@ -14,14 +14,14 @@ export const createUser = async (body) => {
 
     await pool.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
 
-    const { rows } = await pool.query(
+    const { data } = await pool.query(
       `INSERT INTO user_account (user_account_id, username, password, email)
        VALUES (uuid_generate_v4(), $1, $2, $3)
        RETURNING user_account_id`,
       [username, hashedPassword, email],
     );
 
-    return { data: { created_id: rows[0].user_account_id } };
+    return { data: { created_id: data[0].user_account_id } };
   } catch (error) {
     error.status = 500;
     return { error };
