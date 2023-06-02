@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { pool } from '../db';
+import { pool } from '../database';
 import { createError } from '../helpers/error';
 import { hashPassword } from '../helpers/password';
 

@@ -1,4 +1,4 @@
-import { pool } from '../db';
+import { pool } from '../database';
 import { setUpdatePlaceholders, getValues } from '../helpers/query';
 
 export const getAllExpenses = async () => {
