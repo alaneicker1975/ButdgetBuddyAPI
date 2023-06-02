@@ -1,14 +1,13 @@
 import jwt from 'jsonwebtoken';
-import { setErrorResponse } from '../helpers/response';
 import { createError } from '../helpers/error';
+import { getToken } from '../helpers/auth';
 
 export const validateToken = async (req, res, next) => {
   if (!req.headers.authorization) {
     return next(createError(401));
   }
 
-  const authHeader = req.headers.authorization;
-  const token = authHeader.split(' ')[1];
+  const token = getToken(req.headers);
 
   try {
     jwt.verify(token, process.env.JWT_SECRET);

@@ -20,8 +20,6 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
-console.log(process.env.NODE_ENV);
-
 // API documentation
 if (process.env.NODE_ENV === 'development') {
   app.use(
