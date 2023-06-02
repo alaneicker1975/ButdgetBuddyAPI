@@ -1,5 +1,5 @@
 paths:
-  /expense-groups/{userAccountId}:
+  /expense-groups:
     get:
       tags:
         - expense-groups
@@ -8,7 +8,7 @@ paths:
       tags:
         - expense-groups
       summary: Creates a new expense group associated with user ID
-  /expense-groups/{userAccountId}/group/{expenseGroupId}:
+  /expense-groups/{expenseGroupId}:
     get:
       tags:
         - expense-groups
@@ -21,7 +21,7 @@ paths:
       tags:
         - expense-groups
       summary: Deletes one expense group associated with user ID
-  /expense-groups/{userAccountId}/group/{expenseGroupId}/expenses:
+  /expense-groups/{expenseGroupId}/expenses:
     get:
       tags:
         - expense-groups

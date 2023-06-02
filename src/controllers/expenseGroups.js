@@ -36,10 +36,13 @@ export const createExpenseGroup = async (req, res, next) => {
   try {
     const { body, headers } = req;
     const token = getToken(headers);
+
     const { error, data } = await expenseGroupService.createExpenseGroup(
       body,
       token,
     );
+
+    if (error) return next(error);
 
     res.send({ data });
   } catch (error) {

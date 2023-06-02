@@ -1,5 +1,5 @@
 import { pool } from '../database';
-import { setUpdatePlaceholders, getValues } from '../helpers/query';
+import { setInsertPlaceholders, getValues } from '../helpers/query';
 import { getUserAccountId } from '../helpers/auth';
 
 export const getExpenseGroupsByUserAccountId = async (token) => {
@@ -56,15 +56,17 @@ export const getExpenseGroupById = async (expenseGroupId) => {
 export const createExpenseGroup = async (body, token) => {
   try {
     const userAccountId = getUserAccountId(token);
+    const values = [userAccountId, ...getValues(body)];
+    console.log(setInsertPlaceholders(values));
 
-    // const values = [userAccountId, ...getValues(body)];
+    const { rows } = await pool.query(
+      `INSERT INTO expense_group (user_account_id, start_date, end_date, total_budget)
+       VALUES (${setInsertPlaceholders(values)})
+       RETURNING expense_group_id`,
+      values,
+    );
 
-    // const { rows } = pool.query(
-    //   `INSERT INTO expense_group (user_account_id, start_date, end_date, total_budget)
-    //    VALUES (${setUpdatePlaceholders(values)})`,
-    //   values,
-    // );
-    return { data: userAccountId };
+    return { data: { created_id: rows[0].expense_group_id } };
   } catch (error) {
     return { error };
   }

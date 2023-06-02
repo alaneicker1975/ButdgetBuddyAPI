@@ -34,4 +34,6 @@ router.get(
   expenseGroup.getExpensesByExpenseGroupId,
 );
 
+router.post('/:expenseGroupId/expenses', (req, res) => {});
+
 export default router;
