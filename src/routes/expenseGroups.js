@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import * as expenseGroup from '../controllers/expenseGroups';
 import { validateRequestBody } from '../middleware/validateRequestBody';
-// import { expenseGroupSchema } from '../schemas/user';
+import { expenseGroupSchema } from '../schemas/expenseGroups';
 
 const router = Router();
 
@@ -9,7 +9,11 @@ const router = Router();
 router.get('/:userAccountId', expenseGroup.getExpenseGroupsByUserAccountId);
 
 // Creates a new expense group associated with user id
-router.post('/:userAccountId', expenseGroup.createExpenseGroup);
+router.post(
+  '/:userAccountId',
+  validateRequestBody(expenseGroupSchema),
+  expenseGroup.createExpenseGroup,
+);
 
 // Gets one expense group associated with user id
 router.get(
@@ -20,6 +24,7 @@ router.get(
 // Updates one expense group associated with user id
 router.patch(
   '/:userAccountId/group/:expenseGroupId',
+  validateRequestBody(expenseGroupSchema),
   expenseGroup.updateExpenseGroupById,
 );
 

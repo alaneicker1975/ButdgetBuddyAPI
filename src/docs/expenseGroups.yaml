@@ -21,7 +21,7 @@ paths:
       tags:
         - expense-groups
       summary: Deletes one expense group associated with user ID
-  /expense-groups/{userAccountId}/expenses/{expenseGroupId}:
+  /expense-groups/{userAccountId}/group/{expenseGroupId}/expenses:
     get:
       tags:
         - expense-groups
