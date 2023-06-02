@@ -11,7 +11,6 @@ export const getExpenseGroupsByUserAccountId = async (userAccountId) => {
 
     return { data };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };
@@ -33,7 +32,6 @@ export const getExpensesByExpenseGroupId = async (expenseGroupId) => {
 
     return { data };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };
@@ -48,7 +46,6 @@ export const getExpenseGroupById = async (expenseGroupId) => {
 
     return { data: data[0] };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };

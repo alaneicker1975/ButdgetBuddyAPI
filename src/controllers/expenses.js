@@ -8,7 +8,6 @@ export const getAllExpenses = async (req, res, next) => {
 
     return res.status(200).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -22,7 +21,6 @@ export const getExpenseById = async (req, res, next) => {
 
     return res.status(200).send({ data: data[0] });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -36,7 +34,6 @@ export const createExpense = async (req, res, next) => {
 
     res.status(201).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -51,7 +48,6 @@ export const updateExpense = async (req, res, next) => {
 
     res.status(200).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -65,7 +61,6 @@ export const deleteExpense = async (req, res, next) => {
 
     res.status(200).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };

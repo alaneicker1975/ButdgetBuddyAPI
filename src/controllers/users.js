@@ -9,7 +9,6 @@ export const createUser = async (req, res, next) => {
 
     res.status(201).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -24,7 +23,6 @@ export const updateUser = async (req, res, next) => {
 
     res.status(201).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -38,7 +36,6 @@ export const deleteUser = async (req, res, next) => {
 
     res.status(201).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };

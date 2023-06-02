@@ -23,7 +23,6 @@ export const createUser = async (body) => {
 
     return { data: { created_id: data[0].user_account_id } };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };
@@ -58,7 +57,6 @@ export const updateUser = async (userAccountId, body) => {
 
     return { data: { updated_id: updatedUser[0].user_account_id } };
   } catch (error) {
-    error.status = error.status || 500;
     return { error };
   }
 };
@@ -73,7 +71,6 @@ export const deleteUser = async (userAccountId) => {
 
     return { data: { deleted_id: rows[0].user_account_id } };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };

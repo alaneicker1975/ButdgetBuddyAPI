@@ -11,7 +11,6 @@ export const getExpenseGroupsByUserAccountId = async (req, res, next) => {
 
     return res.status(200).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -20,7 +19,6 @@ export const createExpenseGroup = async (req, res, next) => {
   try {
     const { userAccountId } = req.params;
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -37,7 +35,6 @@ export const getExpenseGroupById = async (req, res, next) => {
 
     return res.status(200).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };
@@ -77,7 +74,6 @@ export const getExpensesByExpenseGroupId = async (req, res, next) => {
 
     return res.status(200).send({ data });
   } catch (error) {
-    error.status = 500;
     return next(error);
   }
 };

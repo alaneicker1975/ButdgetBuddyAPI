@@ -11,7 +11,6 @@ export const getAllExpenses = async () => {
 
     return { data };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };
@@ -26,7 +25,6 @@ export const getExpenseById = async (expenseId) => {
 
     return { data };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };
@@ -42,7 +40,6 @@ export const createExpense = async (body) => {
 
     return { data: { created_id: data[0].expense_id } };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };
@@ -59,7 +56,6 @@ export const updateExpense = async (expenseId, body) => {
 
     return { data: { updated_id: data[0].expense_id } };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };
@@ -74,7 +70,6 @@ export const deleteExpense = async (expenseId) => {
 
     return { data: { deleted_id: data[0].expense_id } };
   } catch (error) {
-    error.status = 500;
     return { error };
   }
 };

@@ -21,7 +21,6 @@ export const authenticateUser = async (body) => {
 
     return { data: user };
   } catch (error) {
-    error.status = error.status || 500;
     return { error };
   }
 };
