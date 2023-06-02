@@ -1,11 +1,11 @@
 import expenses from './expenses';
-import expensesGroups from './expensesGroups';
+import expenseGroups from './expenseGroups';
 import users from './users';
 import auth from './auth';
 
 const secureRoutes = {
   expenses,
-  expensesGroups,
+  expenseGroups,
   users,
 };
 
