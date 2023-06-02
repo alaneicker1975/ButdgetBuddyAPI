@@ -3,10 +3,10 @@ import { getToken } from '../helpers/auth';
 
 export const getExpenseGroupsByUserAccountId = async (req, res, next) => {
   try {
-    const { userAccountId } = req.params;
+    const token = getToken(req.headers);
 
     const { data, error } =
-      await expenseGroupService.getExpenseGroupsByUserAccountId(userAccountId);
+      await expenseGroupService.getExpenseGroupsByUserAccountId(token);
 
     if (error) return next(error);
 

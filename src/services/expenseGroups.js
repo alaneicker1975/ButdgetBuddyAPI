@@ -1,8 +1,10 @@
-import jwt from 'jsonwebtoken';
 import { pool } from '../database';
 import { setUpdatePlaceholders, getValues } from '../helpers/query';
+import { getUserAccountId } from '../helpers/auth';
 
-export const getExpenseGroupsByUserAccountId = async (userAccountId) => {
+export const getExpenseGroupsByUserAccountId = async (token) => {
+  const userAccountId = getUserAccountId(token);
+
   try {
     const { rows } = await pool.query(
       `SELECT * 
@@ -53,19 +55,16 @@ export const getExpenseGroupById = async (expenseGroupId) => {
 
 export const createExpenseGroup = async (body, token) => {
   try {
-    const userAccountId = jwt.decode(
-      token,
-      process.env.JWT_SECRET,
-    ).user_account_id;
+    const userAccountId = getUserAccountId(token);
 
-    const values = [userAccountId, ...getValues(body)];
+    // const values = [userAccountId, ...getValues(body)];
 
-    const { rows } = pool.query(
-      `INSERT INTO expense_group (user_account_id, start_date, end_date, total_budget)
-       VALUES (${setUpdatePlaceholders(values)})`,
-      values,
-    );
-    return { data: 'result here' };
+    // const { rows } = pool.query(
+    //   `INSERT INTO expense_group (user_account_id, start_date, end_date, total_budget)
+    //    VALUES (${setUpdatePlaceholders(values)})`,
+    //   values,
+    // );
+    return { data: userAccountId };
   } catch (error) {
     return { error };
   }
