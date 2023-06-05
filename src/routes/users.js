@@ -6,6 +6,7 @@ import { userSchema, updateUserSchema } from '../schemas/user';
 const router = Router();
 
 router.post('/', validateRequestBody(userSchema), user.createUser);
+
 router.patch(
   '/:userAccountId',
   validateRequestBody(updateUserSchema),
