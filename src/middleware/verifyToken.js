@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { createError } from '../helpers/error';
 
-export const validateToken = async (req, res, next) => {
+export const verifyToken = async (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {

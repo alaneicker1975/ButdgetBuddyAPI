@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import * as auth from '../controllers/auth';
 import { validateRequestBody } from '../middleware/validateRequestBody';
-import { validateToken } from '../middleware/validateToken';
+import { verifyToken } from '../middleware/verifyToken';
 import { authSchema } from '../schemas/auth';
 
 const router = Router();
 
 router.post('/', validateRequestBody(authSchema), auth.authenticateUser);
 
-router.get('/verify-token', validateToken, (req, res) => {
+router.get('/verify-token', verifyToken, (req, res) => {
   res.sendStatus(200);
 });
 

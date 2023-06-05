@@ -6,7 +6,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 
 import { swaggerOptions } from './configs/swagger';
-import { validateToken } from './middleware/validateToken';
+import { verifyToken } from './middleware/verifyToken';
 import { setErrorResponse } from './helpers/response';
 import { toKebabCase } from './helpers/string';
 import { ERRORS } from './constants/errors';
@@ -43,7 +43,7 @@ Object.keys(nonSecureRoutes).forEach((route) => {
 Object.keys(secureRoutes).forEach((route) => {
   app.use(
     `${process.env.BASE_URL}/${toKebabCase(route)}`,
-    validateToken,
+    verifyToken,
     secureRoutes[route],
   );
 });
