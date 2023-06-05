@@ -1,12 +1,11 @@
 import * as expenseGroupService from '../services/expenseGroups';
-import { getToken } from '../helpers/auth';
 
 export const getExpenseGroupsByUserAccountId = async (req, res, next) => {
   try {
-    const token = getToken(req.headers);
-
     const { data, error } =
-      await expenseGroupService.getExpenseGroupsByUserAccountId(token);
+      await expenseGroupService.getExpenseGroupsByUserAccountId(
+        req.cookies.token,
+      );
 
     if (error) return next(error);
 
@@ -34,12 +33,9 @@ export const getExpenseGroupById = async (req, res, next) => {
 
 export const createExpenseGroup = async (req, res, next) => {
   try {
-    const { body, headers } = req;
-    const token = getToken(headers);
-
     const { error, data } = await expenseGroupService.createExpenseGroup(
-      body,
-      token,
+      req.body,
+      req.cookies.token,
     );
 
     if (error) return next(error);
