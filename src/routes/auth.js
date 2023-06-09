@@ -9,7 +9,11 @@ const router = Router();
 router.post('/', validateRequestBody(authSchema), auth.authenticateUser);
 
 router.get('/verify-token', verifyToken, (req, res) => {
-  res.sendStatus(200);
+  res.status(200).sendStatus(200);
+});
+
+router.get('/logout', (req, res) => {
+  res.clearCookie('token').status(200).sendStatus(200);
 });
 
 export default router;
