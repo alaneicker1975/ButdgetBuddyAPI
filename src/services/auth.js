@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { pool } from '../database';
 import { createError } from '../helpers/error';
 
@@ -19,7 +20,11 @@ export const authenticateUser = async (body) => {
       throw createError(401);
     }
 
-    return { data: user };
+    const token = jwt.sign(user, process.env.JWT_SECRET, {
+      expiresIn: 3600,
+    });
+
+    return { token, user };
   } catch (error) {
     return { error };
   }
