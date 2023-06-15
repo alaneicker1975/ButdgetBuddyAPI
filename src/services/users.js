@@ -34,8 +34,8 @@ export const updateUser = async (userAccountId, body) => {
     const { rows: user } = await pool.query(
       `SELECT password
        FROM user_account
-       WHERE user_account_id = '${userAccountId}'
-    `,
+       WHERE user_account_id = $1`,
+      [userAccountId],
     );
 
     const isValidUser = await bcrypt.compare(oldPassword, user[0].password);
@@ -49,10 +49,10 @@ export const updateUser = async (userAccountId, body) => {
     const { rows: updatedUser } = await pool.query(
       `UPDATE user_account
        SET password = $1
-       WHERE user_account_id = '${userAccountId}' 
+       WHERE user_account_id = $2 
        RETURNING user_account_id
       `,
-      [hashedPassword],
+      [hashedPassword, userAccountId],
     );
 
     return { data: { updated_id: updatedUser[0].user_account_id } };
@@ -65,8 +65,9 @@ export const deleteUser = async (userAccountId) => {
   try {
     const { rows } = await pool.query(
       `DELETE FROM user_account
-       WHERE user_account_id = '${userAccountId}'
+       WHERE user_account_id = $1
        RETURNING user_account_id`,
+      [userAccountId],
     );
 
     return { data: { deleted_id: rows[0].user_account_id } };
