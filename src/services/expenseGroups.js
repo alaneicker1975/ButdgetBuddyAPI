@@ -71,8 +71,28 @@ export const createExpenseGroup = async (body, token) => {
   }
 };
 
+export const deleteExpenseGroupById = async (expenseGroupId) => {
+  try {
+    await pool.query(
+      `DELETE FROM expense_group_expense
+       WHERE expense_group_id = '${expenseGroupId}'`,
+    );
+
+    const { rows } = await pool.query(
+      `DELETE FROM expense_group
+       WHERE expense_group_id = '${expenseGroupId}'
+       RETURNING expense_group_id`,
+    );
+
+    return { data: { deleted_id: rows[0].expense_group_id } };
+  } catch (error) {
+    return { error };
+  }
+};
+
 export const addExpenseToExpenseGroup = async (body, userAccountId) => {
   // To complete this request we need:
+  //
   // 1. request body for expense.
   // 2. expense_group_id the expense will belong to.
   //
