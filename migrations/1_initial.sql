@@ -28,7 +28,7 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS expense_group_expense (
     expense_id INT REFERENCES expense(expense_id),
-    expense_group_id INT REFERENCES expense_group(expense_group_id),
+    expense_group_id INT REFERENCES expense_group(expense_group_id) ON DELETE CASCADE,
     balance DECIMAL NOT NULL,
     due_date DATE NOT NULL,
     is_paid BOOLEAN NOT NULL,
@@ -76,7 +76,19 @@ VALUES
     '973ad0cc-8709-4913-b6ad-43db8645e521',
     '2023-04-01',
     '2023-04-15',
-    5200
+    5800
+  ),
+  (
+    '973ad0cc-8709-4913-b6ad-43db8645e521',
+    '2023-05-01',
+    '2023-05-15',
+    6000
+  ),
+  (
+    '973ad0cc-8709-4913-b6ad-43db8645e521',
+    '2023-06-01',
+    '2023-06-15',
+    6200
   );
 
 
@@ -91,4 +103,8 @@ INSERT INTO
 VALUES
   (1, 1, 150.45, '2023-5-22', false),
   (2, 1, 1104.00, '2023-06-01', false),
-  (3, 1, 359.27, '2023-06-17', false);
+  (3, 1, 359.27, '2023-06-17', false),
+  (4, 2, 1104.00, '2023-06-01', false),
+  (5, 2, 359.27, '2023-06-17', false),
+  (6, 3, 1104.00, '2023-06-01', false),
+  (7, 3, 359.27, '2023-06-17', false);

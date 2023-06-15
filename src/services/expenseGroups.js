@@ -73,11 +73,6 @@ export const createExpenseGroup = async (body, token) => {
 
 export const deleteExpenseGroupById = async (expenseGroupId) => {
   try {
-    await pool.query(
-      `DELETE FROM expense_group_expense
-       WHERE expense_group_id = '${expenseGroupId}'`,
-    );
-
     const { rows } = await pool.query(
       `DELETE FROM expense_group
        WHERE expense_group_id = '${expenseGroupId}'
