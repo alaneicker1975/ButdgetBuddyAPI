@@ -89,4 +89,17 @@ export const getExpensesByExpenseGroupId = async (req, res, next) => {
   }
 };
 
-const addExpenseToExpenseGroup = async (req, res, next) => {};
+export const addExpenseToExpenseGroup = async (req, res, next) => {
+  try {
+    const { data, error } = await expenseGroupService.addExpenseToExpenseGroup(
+      req.body,
+      req.cookies.token,
+    );
+
+    if (error) return next(error);
+
+    return res.status(200).send({ data });
+  } catch (error) {
+    return next(error);
+  }
+};

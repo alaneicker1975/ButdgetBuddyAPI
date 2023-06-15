@@ -9,7 +9,8 @@ export const getExpenseGroupsByUserAccountId = async (token) => {
     const { rows } = await pool.query(
       `SELECT * 
        FROM expense_group
-       WHERE user_account_id = '${userAccountId}'`,
+       WHERE user_account_id = $1`,
+      [userAccountId],
     );
 
     return { data: rows };
@@ -30,7 +31,8 @@ export const getExpensesByExpenseGroupId = async (expenseGroupId) => {
       FROM expense
         INNER JOIN expense_group_expense
                 ON expense.expense_id = expense_group_expense.expense_id
-      WHERE expense_group_expense.expense_group_id = ${expenseGroupId}`,
+      WHERE expense_group_expense.expense_group_id = $1`,
+      [expenseGroupId],
     );
 
     return { data: rows };
@@ -44,7 +46,8 @@ export const getExpenseGroupById = async (expenseGroupId) => {
     const { rows } = await pool.query(
       `SELECT * 
        FROM expense_group
-       WHERE expense_group_id = '${expenseGroupId}'`,
+       WHERE expense_group_id = $1`,
+      [expenseGroupId],
     );
 
     return { data: rows[0] };
@@ -75,8 +78,9 @@ export const deleteExpenseGroupById = async (expenseGroupId) => {
   try {
     const { rows } = await pool.query(
       `DELETE FROM expense_group
-       WHERE expense_group_id = '${expenseGroupId}'
+       WHERE expense_group_id = $1
        RETURNING expense_group_id`,
+      [expenseGroupId],
     );
 
     return { data: { deleted_id: rows[0].expense_group_id } };
@@ -85,7 +89,10 @@ export const deleteExpenseGroupById = async (expenseGroupId) => {
   }
 };
 
-export const addExpenseToExpenseGroup = async (body, userAccountId) => {
+export const addExpenseToExpenseGroup = async (body, token) => {
+  const userAccountId = getUserAccountId(token);
+  const { expenseGroupId, name } = body;
+
   // To complete this request we need:
   //
   // 1. request body for expense.
@@ -93,6 +100,13 @@ export const addExpenseToExpenseGroup = async (body, userAccountId) => {
   //
   // STEPS
   // 1. Check if expense defined in request body is new or existing.
+  const { rows } = pool.query(
+    `SELECT exists 
+      (SELECT 1 FROM expense 
+        WHERE LOWER(name) = $1 
+        LIMIT 1)`,
+    [name.toLowerCase()],
+  );
   //      1a. An existing expense will contain the expense_id in the request body.
   // 2. If new expense:
   //      2a. Add the expense to expense table and return the new expense_id.

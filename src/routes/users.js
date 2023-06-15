@@ -12,6 +12,7 @@ router.patch(
   validateRequestBody(updateUserSchema),
   user.updateUser,
 );
+
 router.delete('/:userAccountId', user.deleteUser);
 
 export default router;

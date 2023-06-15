@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import * as expenseGroup from '../controllers/expenseGroups';
 import { validateRequestBody } from '../middleware/validateRequestBody';
-import { expenseGroupSchema } from '../schemas/expenseGroups';
+import {
+  expenseGroupSchema,
+  expenseGroupExpenseSchema,
+} from '../schemas/expenseGroups';
 
 const router = Router();
 
@@ -34,6 +37,11 @@ router.get(
   expenseGroup.getExpensesByExpenseGroupId,
 );
 
-router.post('/:expenseGroupId/expenses', (req, res) => {});
+// Creates a new expense associated with an expense group id
+router.post(
+  '/:expenseGroupId/expenses',
+  validateRequestBody(expenseGroupExpenseSchema),
+  expenseGroup.addExpenseToExpenseGroup,
+);
 
 export default router;

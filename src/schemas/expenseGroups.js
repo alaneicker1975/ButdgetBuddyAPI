@@ -8,3 +8,11 @@ export const expenseGroupSchema = {
     total_budget: { type: 'number' },
   },
 };
+
+export const expenseGroupExpenseSchema = {
+  type: 'Object',
+  properties: {
+    expense_group_id: { type: 'number' },
+    name: { type: 'string' },
+  },
+};
