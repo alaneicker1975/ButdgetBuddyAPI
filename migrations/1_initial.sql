@@ -17,18 +17,17 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS expense_group (
     expense_group_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_account_id UUID NOT NULL,
+    user_account_id UUID NOT NULL REFERENCES user_account(user_account_id) ON DELETE CASCADE,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    total_budget INT NOT NULL,
-    CONSTRAINT user_account_id FOREIGN KEY(user_account_id) REFERENCES user_account(user_account_id)
+    total_budget INT NOT NULL
   );
 
 
 CREATE TABLE
   IF NOT EXISTS expense_group_expense (
     expense_id INT REFERENCES expense(expense_id),
-    expense_group_id INT REFERENCES expense_group(expense_group_id) ON DELETE CASCADE,
+    expense_group_id INT NOT NULL REFERENCES expense_group(expense_group_id) ON DELETE CASCADE,
     balance DECIMAL NOT NULL,
     due_date DATE NOT NULL,
     is_paid BOOLEAN NOT NULL,
