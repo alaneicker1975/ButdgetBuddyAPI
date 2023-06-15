@@ -47,6 +47,12 @@ VALUES
     'alaneicker',
     '$2b$10$aNmICXxq2jzANlX/WrIhNudRR8v43EvxKmBxoFT1UkQmSUHw5cLP.',
     'alaneicker@gmail.com'
+  ),
+  (
+    '973ad0cc-8709-4913-b6ad-43db8645e522',
+    'root',
+    '$2b$10$aNmICXxq2jzANlX/WrIhNudRR8v43EvxKmBxoFT1UkQmSUHw5cLP.',
+    'root@gmail.com'
   );
 
 
@@ -78,16 +84,10 @@ VALUES
     5800
   ),
   (
-    '973ad0cc-8709-4913-b6ad-43db8645e521',
+    '973ad0cc-8709-4913-b6ad-43db8645e522',
     '2023-05-01',
     '2023-05-15',
     6000
-  ),
-  (
-    '973ad0cc-8709-4913-b6ad-43db8645e521',
-    '2023-06-01',
-    '2023-06-15',
-    6200
   );
 
 
@@ -97,13 +97,12 @@ INSERT INTO
     expense_group_id,
     balance,
     due_date,
-    is_paid
+    is_paid,
+    note
   )
 VALUES
-  (1, 1, 150.45, '2023-5-22', false),
-  (2, 1, 1104.00, '2023-06-01', false),
-  (3, 1, 359.27, '2023-06-17', false),
-  (4, 2, 1104.00, '2023-06-01', false),
-  (5, 2, 359.27, '2023-06-17', false),
-  (6, 3, 1104.00, '2023-06-01', false),
-  (7, 3, 359.27, '2023-06-17', false);
+  (1, 1, 150.45, '2023-5-22', false, null),
+  (2, 1, 1104.00, '2023-06-01', false, null),
+  (3, 1, 359.27, '2023-06-17', false, null),
+  (6, 2, 1104.00, '2023-06-01', false, 'this is a note'),
+  (7, 2, 359.27, '2023-06-17', false, 'this is a note');
