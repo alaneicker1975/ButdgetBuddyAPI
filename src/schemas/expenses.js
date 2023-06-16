@@ -1,7 +1,6 @@
-export const expenseSchema = {
-  type: 'Object',
-  properties: {
-    expense_id: { type: 'number' },
-    name: { type: 'string' },
-  },
-};
+import Joi from 'joi';
+
+export const expenseSchema = Joi.object({
+  expense_id: Joi.number(),
+  name: Joi.string().max(50).required(),
+});

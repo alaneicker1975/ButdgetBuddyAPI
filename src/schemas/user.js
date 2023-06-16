@@ -1,16 +1,12 @@
-export const userSchema = {
-  type: 'Object',
-  properties: {
-    username: { type: 'string' },
-    password: { type: 'string' },
-    email: { type: 'string' },
-  },
-};
+import Joi from 'joi';
 
-export const updateUserSchema = {
-  type: 'Object',
-  properties: {
-    oldPassword: { type: 'string' },
-    newPassword: { type: 'string' },
-  },
-};
+export const userSchema = Joi.object({
+  username: Joi.string().min(8).max(50).required(),
+  password: Joi.string().min(8).max(16).required(),
+  email: Joi.string().email().required(),
+});
+
+export const updateUserSchema = Joi.object({
+  username: Joi.string().min(8).max(50).required(),
+  password: Joi.string().min(8).max(16).required(),
+});

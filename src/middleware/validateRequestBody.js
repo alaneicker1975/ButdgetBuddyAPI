@@ -1,16 +1,11 @@
-import { Validator } from 'jsonschema';
 import { createError } from '../helpers/error';
 
-const validator = new Validator();
-
 export const validateRequestBody = (schema) => (req, res, next) => {
-  const { errors } = validator.validate(req.body, schema);
+  const { error } = schema.validate(req.body);
 
-  if (errors.length === 0) {
-    return next();
+  if (error) {
+    return next(createError(400, error.message.replace(/"/g, '')));
   } else {
-    return next(
-      createError(400, errors.map((error) => error.stack).join(', ')),
-    );
+    return next();
   }
 };
