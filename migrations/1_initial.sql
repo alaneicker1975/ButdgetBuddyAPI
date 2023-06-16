@@ -1,7 +1,7 @@
 CREATE TABLE
   IF NOT EXISTS user_account (
     user_account_id UUID PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(60) NOT NULL,
     email VARCHAR(100) NOT NULL
   );
@@ -10,7 +10,7 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS expense (
     expense_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) NOT NULL UNIQUE
   );
 
 
