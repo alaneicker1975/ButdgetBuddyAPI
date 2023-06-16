@@ -33,8 +33,6 @@ export const createExpense = async (body) => {
   try {
     const { name } = body;
 
-    // TODO: Check if expense exists and throw error if it does
-
     const { rows } = await pool.query(
       `INSERT INTO expense (name)
        VALUES ($1)

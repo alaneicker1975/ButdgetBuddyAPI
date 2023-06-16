@@ -63,6 +63,7 @@ VALUES
   ('Day Care'),
   ('Jeep Payment'),
   ('Ford Payment'),
+  ('Credit Card'),
   ('ComEd'),
   ('Nicor'),
   ('Water Bill'),

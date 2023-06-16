@@ -54,11 +54,17 @@ app.use((err, req, res, next) => {
     return next();
   }
 
+  if (err.routine === '_bt_check_unique') {
+    err.status = 409;
+  }
+
   const status = err.status || 500;
 
   res
     .status(status)
-    .send(setErrorResponse(err.message || ERRORS[status], status));
+    .send(
+      setErrorResponse(err.detail || err.message || ERRORS[status], status),
+    );
 });
 
 app.listen(port, () => console.log('Server running on port', port));
