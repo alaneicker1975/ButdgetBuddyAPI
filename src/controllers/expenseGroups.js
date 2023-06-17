@@ -93,7 +93,6 @@ export const addExpenseToExpenseGroup = async (req, res, next) => {
   try {
     const { data, error } = await expenseGroupService.addExpenseToExpenseGroup(
       req.body,
-      req.cookies.token,
     );
 
     if (error) return next(error);

@@ -23,6 +23,8 @@ export const getExpenseById = async (expenseId) => {
       [expenseId],
     );
 
+    console.log(rows);
+
     return { data: rows };
   } catch (error) {
     return { error };
@@ -40,7 +42,7 @@ export const createExpense = async (body) => {
       [name],
     );
 
-    return { data: { created_id: rows[0].expense_id } };
+    return { data: { createdId: rows[0].expense_id } };
   } catch (error) {
     return { error };
   }
@@ -58,7 +60,7 @@ export const updateExpense = async (expenseId, body) => {
       [name, expenseId],
     );
 
-    return { data: { updated_id: rows[0].expense_id } };
+    return { data: { updatedId: rows[0].expense_id } };
   } catch (error) {
     return { error };
   }
@@ -73,7 +75,7 @@ export const deleteExpense = async (expenseId) => {
       [expenseId],
     );
 
-    return { data: { deleted_id: rows[0].expense_id } };
+    return { data: { deletedId: rows[0].expense_id } };
   } catch (error) {
     return { error };
   }

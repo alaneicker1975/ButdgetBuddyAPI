@@ -110,7 +110,7 @@ definitions:
       data:
         type: object
         properties:
-          created_id:
+          createdId:
             type: integer
   patchSuccessResponse:
     type: object
@@ -118,7 +118,7 @@ definitions:
       data:
         type: object
         properties:
-          updated_id:
+          updatedId:
             type: integer
   deleteSuccessResponse:
     type: object
@@ -126,7 +126,7 @@ definitions:
       data:
         type: object
         properties:
-          deleted_id:
+          deletedId:
             type: integer
   errorResponse:
     type: object

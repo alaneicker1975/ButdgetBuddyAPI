@@ -68,7 +68,7 @@ export const createExpenseGroup = async (body, token) => {
       values,
     );
 
-    return { data: { created_id: rows[0].expense_group_id } };
+    return { data: { createdId: rows[0].expense_group_id } };
   } catch (error) {
     return { error };
   }
@@ -83,37 +83,54 @@ export const deleteExpenseGroupById = async (expenseGroupId) => {
       [expenseGroupId],
     );
 
-    return { data: { deleted_id: rows[0].expense_group_id } };
+    return { data: { deletedId: rows[0].expense_group_id } };
   } catch (error) {
     return { error };
   }
 };
 
-export const addExpenseToExpenseGroup = async (body, token) => {
-  const userAccountId = getUserAccountId(token);
-  const { expenseGroupId, name } = body;
+export const addExpenseToExpenseGroup = async (body) => {
+  try {
+    const { name, ...rest } = body;
 
-  // To complete this request we need:
-  //
-  // 1. request body for expense.
-  // 2. expense_group_id the expense will belong to.
-  //
-  // STEPS
-  // 1. Check if expense defined in request body is new or existing.
-  const { rows } = pool.query(
-    `SELECT exists 
-      (SELECT 1 FROM expense 
-        WHERE LOWER(name) = $1 
-        LIMIT 1)`,
-    [name.toLowerCase()],
-  );
-  //      1a. An existing expense will contain the expense_id in the request body.
-  // 2. If new expense:
-  //      2a. Add the expense to expense table and return the new expense_id.
-  //      2b. Add the expense to expense_group_expense table along with
-  //          the expense_id and expense_group_id.
-  // 3. If existing expense:
-  //      3a. just update the expense_group_expense table.
-  // 4. If successful return the expense_id of the new expense.
-  // 5. If error, return the error.
+    let expenseId;
+
+    const { rows: foundExpense } = pool.query(
+      `SELECT expense_id 
+       FROM expense
+       WHERE LOWER(name) = $1`,
+      [name.toLowerCase()],
+    );
+
+    if (foundExpense.length === 0) {
+      const { rows: newExpense } = await pool.query(
+        `INSERT INTO expense (name)
+         VALUES ($1)
+         RETURNING expense_id`,
+        [name],
+      );
+
+      expenseId = newExpense[0].expense_id;
+    } else {
+      expenseId = foundExpense[0].expense_id;
+    }
+
+    const values = [expenseId, ...getValues(rest)];
+
+    await pool.query(
+      `INSERT INTO expense_group_expense (
+        expense_id,
+        expense_group_id,
+        balance,
+        due_date,
+        is_paid,
+        note
+      ) VALUES (${setInsertPlaceholders(values)})`,
+      values,
+    );
+
+    return { data: { createdId: expenseId } };
+  } catch (error) {
+    return { error };
+  }
 };

@@ -21,7 +21,7 @@ export const createUser = async (body) => {
       [username, hashedPassword, email],
     );
 
-    return { data: { created_id: rows[0].user_account_id } };
+    return { data: { createdId: rows[0].user_account_id } };
   } catch (error) {
     return { error };
   }
@@ -55,7 +55,7 @@ export const updateUser = async (userAccountId, body) => {
       [hashedPassword, userAccountId],
     );
 
-    return { data: { updated_id: updatedUser[0].user_account_id } };
+    return { data: { updatedId: updatedUser[0].user_account_id } };
   } catch (error) {
     return { error };
   }
@@ -70,7 +70,7 @@ export const deleteUser = async (userAccountId) => {
       [userAccountId],
     );
 
-    return { data: { deleted_id: rows[0].user_account_id } };
+    return { data: { deletedId: rows[0].user_account_id } };
   } catch (error) {
     return { error };
   }
