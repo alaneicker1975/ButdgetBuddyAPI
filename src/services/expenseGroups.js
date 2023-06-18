@@ -133,17 +133,20 @@ export const addExpenseToExpenseGroup = async ({
       expenseId = existingExpense[0].expense_id;
 
       // Check if expense already exists in expense group
-      const { rows: existingExpenseGroupExpense } = await pool.query(
-        `SELECT expense_group_id
-         FROM expense_group_expense
-         WHERE expense_group_id = $1
-         AND expense_id = $2`,
+      const {
+        rows: [record],
+      } = await pool.query(
+        `SELECT exists 
+          (SELECT 1 
+            FROM expense_group_expense 
+            WHERE expense_group_id = $1
+            AND expense_id = $2
+            LIMIT 1)`,
         [expenseGroupId, expenseId],
       );
 
-      // If expense already exists in expense group,
-      // Throw 409 error
-      if (existingExpenseGroupExpense.length !== 0) {
+      // If expense already exists in expense group, throw 409 error
+      if (record.exists) {
         throw createError(409, `${name} already exists`);
       }
     }
