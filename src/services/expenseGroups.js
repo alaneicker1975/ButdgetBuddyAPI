@@ -107,14 +107,14 @@ export const addExpenseToExpenseGroup = async ({
   try {
     let expenseId;
 
-    const { rows: foundExpense } = await pool.query(
+    const { rows: existingExpense } = await pool.query(
       `SELECT expense_id 
        FROM expense
        WHERE LOWER(name) = $1`,
       [name.toLowerCase()],
     );
 
-    if (foundExpense.length === 0) {
+    if (existingExpense.length === 0) {
       const { rows: newExpense } = await pool.query(
         `INSERT INTO expense (name)
          VALUES ($1)
@@ -124,9 +124,9 @@ export const addExpenseToExpenseGroup = async ({
 
       expenseId = newExpense[0].expense_id;
     } else {
-      expenseId = foundExpense[0].expense_id;
+      expenseId = existingExpense[0].expense_id;
 
-      const { rows: foundAlreadyAssignedExpense } = await pool.query(
+      const { rows: alreadyAssignedExpense } = await pool.query(
         `SELECT expense_group_id
          FROM expense_group_expense
          WHERE expense_group_id = $1
@@ -134,7 +134,7 @@ export const addExpenseToExpenseGroup = async ({
         [expenseGroupId, expenseId],
       );
 
-      if (foundAlreadyAssignedExpense.length !== 0) {
+      if (alreadyAssignedExpense.length !== 0) {
         throw createError(409, `${name} already exists`);
       }
     }
