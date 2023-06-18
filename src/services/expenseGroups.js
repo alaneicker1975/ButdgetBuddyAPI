@@ -1,5 +1,4 @@
 import { pool } from '../database';
-import { setInsertPlaceholders, getValues } from '../helpers/query';
 import { getUserAccountId } from '../helpers/auth';
 import { createError } from '../helpers/error';
 
@@ -57,16 +56,23 @@ export const getExpenseGroupById = async (expenseGroupId) => {
   }
 };
 
-export const createExpenseGroup = async (body, token) => {
+export const createExpenseGroup = async (
+  { startDate, endDate, totalBudget },
+  token,
+) => {
   try {
     const userAccountId = getUserAccountId(token);
-    const values = [userAccountId, ...getValues(body)];
 
     const { rows } = await pool.query(
-      `INSERT INTO expense_group (user_account_id, start_date, end_date, total_budget)
-       VALUES (${setInsertPlaceholders(values)})
+      `INSERT INTO expense_group (
+        user_account_id, 
+        start_date, 
+        end_date, 
+        total_budget
+      )
+       VALUES ($1, $2, $3, $4)
        RETURNING expense_group_id`,
-      values,
+      [userAccountId, startDate, endDate, totalBudget],
     );
 
     return { data: { createdId: rows[0].expense_group_id } };
@@ -120,7 +126,7 @@ export const addExpenseToExpenseGroup = async ({
     } else {
       expenseId = foundExpense[0].expense_id;
 
-      const { rows: foundExpenseGroupExpense } = await pool.query(
+      const { rows: foundAlreadyAssignedExpense } = await pool.query(
         `SELECT expense_group_id
          FROM expense_group_expense
          WHERE expense_group_id = $1
@@ -128,7 +134,7 @@ export const addExpenseToExpenseGroup = async ({
         [expenseGroupId, expenseId],
       );
 
-      if (foundExpenseGroupExpense.length !== 0) {
+      if (foundAlreadyAssignedExpense.length !== 0) {
         throw createError(409, `${name} already exists`);
       }
     }

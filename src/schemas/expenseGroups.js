@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export const expenseGroupSchema = Joi.object({
-  userAccountId: Joi.string().required(),
+  userAccountId: Joi.string(),
   startDate: Joi.string().required(),
   endDate: Joi.string().required(),
   totalBudget: Joi.number().required(),
