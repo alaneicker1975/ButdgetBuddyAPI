@@ -44,14 +44,16 @@ export const getExpensesByExpenseGroupId = async (expenseGroupId) => {
 
 export const getExpenseGroupById = async (expenseGroupId) => {
   try {
-    const { rows } = await pool.query(
+    const {
+      rows: [record],
+    } = await pool.query(
       `SELECT * 
        FROM expense_group
        WHERE expense_group_id = $1`,
       [expenseGroupId],
     );
 
-    return { data: rows[0] };
+    return { data: record };
   } catch (error) {
     return { error };
   }
@@ -64,7 +66,9 @@ export const createExpenseGroup = async (
   try {
     const userAccountId = getUserAccountId(token);
 
-    const { rows } = await pool.query(
+    const {
+      rows: [record],
+    } = await pool.query(
       `INSERT INTO expense_group (
         user_account_id, 
         start_date, 
@@ -76,7 +80,7 @@ export const createExpenseGroup = async (
       [userAccountId, startDate, endDate, totalBudget],
     );
 
-    return { data: { createdId: rows[0].expense_group_id } };
+    return { data: { createdId: record.expense_group_id } };
   } catch (error) {
     return { error };
   }
@@ -84,14 +88,16 @@ export const createExpenseGroup = async (
 
 export const deleteExpenseGroupById = async (expenseGroupId) => {
   try {
-    const { rows } = await pool.query(
+    const {
+      rows: [record],
+    } = await pool.query(
       `DELETE FROM expense_group
        WHERE expense_group_id = $1
        RETURNING expense_group_id`,
       [expenseGroupId],
     );
 
-    return { data: { deletedId: rows[0].expense_group_id } };
+    return { data: { deletedId: record.expense_group_id } };
   } catch (error) {
     return { error };
   }
@@ -109,7 +115,9 @@ export const addExpenseToExpenseGroup = async ({
     let expenseId;
 
     // Check if expense already exists
-    const { rows: existingExpense } = await pool.query(
+    const {
+      rows: [existingExpense],
+    } = await pool.query(
       `SELECT expense_id 
        FROM expense
        WHERE LOWER(name) = $1`,
@@ -117,24 +125,26 @@ export const addExpenseToExpenseGroup = async ({
     );
 
     // If the expense DOES NOT exist
-    if (existingExpense.length === 0) {
+    if (!existingExpense) {
       // automatically save as new expense
-      const { rows: newExpense } = await pool.query(
+      const {
+        rows: [newExpense],
+      } = await pool.query(
         `INSERT INTO expense (name)
          VALUES ($1)
          RETURNING expense_id`,
         [name],
       );
 
-      expenseId = newExpense[0].expense_id;
+      expenseId = newExpense.expense_id;
     }
     // If the expense DOES exist,
     else {
-      expenseId = existingExpense[0].expense_id;
+      expenseId = existingExpense.expense_id;
 
       // Check if expense already exists in expense group
       const {
-        rows: [record],
+        rows: [expenseGroupExpense],
       } = await pool.query(
         `SELECT exists 
           (SELECT 1 
@@ -146,7 +156,7 @@ export const addExpenseToExpenseGroup = async ({
       );
 
       // If expense already exists in expense group, throw 409 error
-      if (record.exists) {
+      if (expenseGroupExpense.exists) {
         throw createError(409, `${name} already exists`);
       }
     }

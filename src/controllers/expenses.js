@@ -19,7 +19,7 @@ export const getExpenseById = async (req, res, next) => {
 
     if (error) return next(error);
 
-    return res.status(200).send({ data: data[0] });
+    return res.status(200).send({ data });
   } catch (error) {
     return next(error);
   }

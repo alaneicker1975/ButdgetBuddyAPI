@@ -16,16 +16,16 @@ export const getAllExpenses = async () => {
 
 export const getExpenseById = async (expenseId) => {
   try {
-    const { rows } = await pool.query(
+    const {
+      rows: [record],
+    } = await pool.query(
       `SELECT * 
        FROM expense 
        WHERE expense_id = $1`,
       [expenseId],
     );
 
-    console.log(rows);
-
-    return { data: rows };
+    return { data: record };
   } catch (error) {
     return { error };
   }
