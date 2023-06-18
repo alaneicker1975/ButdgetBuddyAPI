@@ -1,6 +1,7 @@
 import { pool } from '../database';
 import { setInsertPlaceholders, getValues } from '../helpers/query';
 import { getUserAccountId } from '../helpers/auth';
+import { createError } from '../helpers/error';
 
 export const getExpenseGroupsByUserAccountId = async (token) => {
   const userAccountId = getUserAccountId(token);
@@ -89,13 +90,18 @@ export const deleteExpenseGroupById = async (expenseGroupId) => {
   }
 };
 
-export const addExpenseToExpenseGroup = async (body) => {
+export const addExpenseToExpenseGroup = async ({
+  name,
+  expenseGroupId,
+  balance,
+  dueDate,
+  isPaid = false,
+  note = null,
+}) => {
   try {
-    const { name, ...rest } = body;
-
     let expenseId;
 
-    const { rows: foundExpense } = pool.query(
+    const { rows: foundExpense } = await pool.query(
       `SELECT expense_id 
        FROM expense
        WHERE LOWER(name) = $1`,
@@ -113,9 +119,19 @@ export const addExpenseToExpenseGroup = async (body) => {
       expenseId = newExpense[0].expense_id;
     } else {
       expenseId = foundExpense[0].expense_id;
-    }
 
-    const values = [expenseId, ...getValues(rest)];
+      const { rows: foundExpenseGroupExpense } = await pool.query(
+        `SELECT expense_group_id
+         FROM expense_group_expense
+         WHERE expense_group_id = $1
+         AND expense_id = $2`,
+        [expenseGroupId, expenseId],
+      );
+
+      if (foundExpenseGroupExpense.length !== 0) {
+        throw createError(409, `${name} already exists`);
+      }
+    }
 
     await pool.query(
       `INSERT INTO expense_group_expense (
@@ -125,8 +141,8 @@ export const addExpenseToExpenseGroup = async (body) => {
         due_date,
         is_paid,
         note
-      ) VALUES (${setInsertPlaceholders(values)})`,
-      values,
+      ) VALUES ($1, $2, $3, $4, $5, $6)`,
+      [expenseId, expenseGroupId, balance, dueDate, isPaid, note],
     );
 
     return { data: { createdId: expenseId } };

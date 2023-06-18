@@ -30,7 +30,7 @@ CREATE TABLE
     expense_group_id INT NOT NULL REFERENCES expense_group(expense_group_id) ON DELETE CASCADE,
     balance DECIMAL NOT NULL,
     due_date DATE NOT NULL,
-    is_paid BOOLEAN NOT NULL,
+    is_paid BOOLEAN NOT NULL DEFAULT false,
     note VARCHAR(200),
     PRIMARY KEY (expense_id, expense_group_id)
   );
