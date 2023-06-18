@@ -126,7 +126,7 @@ export const addExpenseToExpenseGroup = async ({
     } else {
       expenseId = existingExpense[0].expense_id;
 
-      const { rows: alreadyAssignedExpense } = await pool.query(
+      const { rows: existingExpenseGroupExpense } = await pool.query(
         `SELECT expense_group_id
          FROM expense_group_expense
          WHERE expense_group_id = $1
@@ -134,7 +134,7 @@ export const addExpenseToExpenseGroup = async ({
         [expenseGroupId, expenseId],
       );
 
-      if (alreadyAssignedExpense.length !== 0) {
+      if (existingExpenseGroupExpense.length !== 0) {
         throw createError(409, `${name} already exists`);
       }
     }
