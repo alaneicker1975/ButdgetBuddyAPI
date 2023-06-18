@@ -6,12 +6,15 @@ import { authSchema } from '../schemas/auth';
 
 const router = Router();
 
+// Authenticate user
 router.post('/', validateRequestBody(authSchema), auth.authenticateUser);
 
+// Verify user token
 router.get('/verify-token', verifyToken, (req, res) => {
   res.sendStatus(200);
 });
 
+// Logout user
 router.get('/logout', (req, res) => {
   res.clearCookie('token').sendStatus(200);
 });

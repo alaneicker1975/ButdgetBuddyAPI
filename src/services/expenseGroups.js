@@ -21,6 +21,7 @@ export const getExpenseGroupsByUserAccountId = async (token) => {
 
 export const getExpensesByExpenseGroupId = async (expenseGroupId) => {
   try {
+    // Joins data from expense_group_expense and expense tables
     const { rows } = await pool.query(
       `SELECT
         expense.*,
@@ -107,6 +108,7 @@ export const addExpenseToExpenseGroup = async ({
   try {
     let expenseId;
 
+    // Check if expense already exists
     const { rows: existingExpense } = await pool.query(
       `SELECT expense_id 
        FROM expense
@@ -114,7 +116,9 @@ export const addExpenseToExpenseGroup = async ({
       [name.toLowerCase()],
     );
 
+    // If the expense DOES NOT exist
     if (existingExpense.length === 0) {
+      // automatically save as new expense
       const { rows: newExpense } = await pool.query(
         `INSERT INTO expense (name)
          VALUES ($1)
@@ -123,9 +127,12 @@ export const addExpenseToExpenseGroup = async ({
       );
 
       expenseId = newExpense[0].expense_id;
-    } else {
+    }
+    // If the expense DOES exist,
+    else {
       expenseId = existingExpense[0].expense_id;
 
+      // Check if expense already exists in expense group
       const { rows: existingExpenseGroupExpense } = await pool.query(
         `SELECT expense_group_id
          FROM expense_group_expense
@@ -134,11 +141,14 @@ export const addExpenseToExpenseGroup = async ({
         [expenseGroupId, expenseId],
       );
 
+      // If expense already exists in expense group,
+      // Throw 409 error
       if (existingExpenseGroupExpense.length !== 0) {
         throw createError(409, `${name} already exists`);
       }
     }
 
+    // If no errors, add expense to expense_group_expense table
     await pool.query(
       `INSERT INTO expense_group_expense (
         expense_id,
