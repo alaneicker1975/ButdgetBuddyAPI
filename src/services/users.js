@@ -14,14 +14,16 @@ export const createUser = async (body) => {
 
     await pool.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
 
-    const { rows } = await pool.query(
+    const {
+      rows: [user],
+    } = await pool.query(
       `INSERT INTO user_account (user_account_id, username, password, email)
        VALUES (uuid_generate_v4(), $1, $2, $3)
        RETURNING user_account_id`,
       [username, hashedPassword, email],
     );
 
-    return { data: { createdId: rows[0].user_account_id } };
+    return { data: { createdId: user.user_account_id } };
   } catch (error) {
     return { error };
   }
@@ -31,14 +33,16 @@ export const updateUser = async (userAccountId, body) => {
   try {
     const { oldPassword, newPassword } = body;
 
-    const { rows: user } = await pool.query(
+    const {
+      rows: [user],
+    } = await pool.query(
       `SELECT password
        FROM user_account
        WHERE user_account_id = $1`,
       [userAccountId],
     );
 
-    const isValidUser = await bcrypt.compare(oldPassword, user[0].password);
+    const isValidUser = await bcrypt.compare(oldPassword, user.password);
 
     if (!isValidUser) {
       throw createError(401);
@@ -46,7 +50,9 @@ export const updateUser = async (userAccountId, body) => {
 
     const hashedPassword = await hashPassword(newPassword);
 
-    const { rows: updatedUser } = await pool.query(
+    const {
+      rows: [updatedUser],
+    } = await pool.query(
       `UPDATE user_account
        SET password = $1
        WHERE user_account_id = $2 
@@ -55,7 +61,7 @@ export const updateUser = async (userAccountId, body) => {
       [hashedPassword, userAccountId],
     );
 
-    return { data: { updatedId: updatedUser[0].user_account_id } };
+    return { data: { updatedId: updatedUser.user_account_id } };
   } catch (error) {
     return { error };
   }
@@ -63,14 +69,16 @@ export const updateUser = async (userAccountId, body) => {
 
 export const deleteUser = async (userAccountId) => {
   try {
-    const { rows } = await pool.query(
+    const {
+      rows: [user],
+    } = await pool.query(
       `DELETE FROM user_account
        WHERE user_account_id = $1
        RETURNING user_account_id`,
       [userAccountId],
     );
 
-    return { data: { deletedId: rows[0].user_account_id } };
+    return { data: { deletedId: user.user_account_id } };
   } catch (error) {
     return { error };
   }

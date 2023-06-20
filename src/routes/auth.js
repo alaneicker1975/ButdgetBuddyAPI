@@ -15,8 +15,8 @@ router.get('/verify-token', verifyToken, (req, res) => {
 });
 
 // Logout user
-router.get('/logout', (req, res) => {
-  res.clearCookie('token').sendStatus(200);
+router.post('/logout', (req, res) => {
+  res.clearCookie('token').sendStatus(204);
 });
 
 export default router;

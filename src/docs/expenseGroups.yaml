@@ -26,3 +26,16 @@ paths:
       tags:
         - expense-groups
       summary: Gets all expenses associated with an expense group ID
+    post:
+      tags:
+        - expense-groups
+      summary: Creates a new expense associated with an expense group
+  /expense-groups/{expenseGroupId}/expenses/{expenseId}:
+    patch:
+      tags:
+        - expense-groups
+      summary: Updates an expense associated with an expense group
+    delete:
+      tags:
+        - expense-groups
+      summary: Deletes an expense associated with an expense group

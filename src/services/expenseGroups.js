@@ -45,7 +45,7 @@ export const getExpensesByExpenseGroupId = async (expenseGroupId) => {
 export const getExpenseGroupById = async (expenseGroupId) => {
   try {
     const {
-      rows: [record],
+      rows: [expense],
     } = await pool.query(
       `SELECT * 
        FROM expense_group
@@ -53,7 +53,7 @@ export const getExpenseGroupById = async (expenseGroupId) => {
       [expenseGroupId],
     );
 
-    return { data: record };
+    return { data: expense };
   } catch (error) {
     return { error };
   }
@@ -67,7 +67,7 @@ export const createExpenseGroup = async (
     const userAccountId = getUserAccountId(token);
 
     const {
-      rows: [record],
+      rows: [expense],
     } = await pool.query(
       `INSERT INTO expense_group (
         user_account_id, 
@@ -80,7 +80,7 @@ export const createExpenseGroup = async (
       [userAccountId, startDate, endDate, totalBudget],
     );
 
-    return { data: { createdId: record.expense_group_id } };
+    return { data: { createdId: expense.expense_group_id } };
   } catch (error) {
     return { error };
   }
@@ -89,7 +89,7 @@ export const createExpenseGroup = async (
 export const deleteExpenseGroupById = async (expenseGroupId) => {
   try {
     const {
-      rows: [record],
+      rows: [expense],
     } = await pool.query(
       `DELETE FROM expense_group
        WHERE expense_group_id = $1
@@ -97,7 +97,7 @@ export const deleteExpenseGroupById = async (expenseGroupId) => {
       [expenseGroupId],
     );
 
-    return { data: { deletedId: record.expense_group_id } };
+    return { data: { deletedId: expense.expense_group_id } };
   } catch (error) {
     return { error };
   }

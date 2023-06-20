@@ -29,6 +29,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/definitions/errorResponse'
+  /auth/verify-token:
+    get:
+      tags:
+        - auth
+      summary: Verifies a user token
+  /auth/logout:
+    post:
+      tags:
+        - auth
+      summary: Logs user out of current session
 definitions:
   authRequestBody:
     type: object
