@@ -47,15 +47,19 @@ export const createExpenseGroup = async (req, res, next) => {
 };
 
 export const updateExpenseGroupById = async (req, res, next) => {
-  const { expenseGroupId } = req.params;
+  try {
+    const { expenseGroupId } = req.params;
 
-  // const { data, error } = await expenseGroupService.getExpenseGroupById(
-  //   expenseGroupId,
-  // );
+    const { data, error } = await expenseGroupService.updateExpenseGroupById(
+      expenseGroupId,
+    );
 
-  // if (error) return next(error);
+    if (error) return next(error);
 
-  // return res.status(200).send({ data });
+    return res.status(200).send({ data });
+  } catch (error) {
+    return next(error);
+  }
 };
 
 export const deleteExpenseGroupById = async (req, res, next) => {
@@ -94,6 +98,42 @@ export const addExpenseToExpenseGroup = async (req, res, next) => {
     const { data, error } = await expenseGroupService.addExpenseToExpenseGroup(
       req.body,
     );
+
+    if (error) return next(error);
+
+    return res.status(200).send({ data });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const updateExpenseGroupExpenseById = async (req, res, next) => {
+  try {
+    const { expenseGroupId, expenseId } = req.params;
+
+    const { data, error } =
+      await expenseGroupService.updateExpenseGroupExpenseById(
+        expenseGroupId,
+        expenseId,
+      );
+
+    if (error) return next(error);
+
+    return res.status(200).send({ data });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const deleteExpenseFromExpenseGroupById = async (req, res, next) => {
+  try {
+    const { expenseGroupId, expenseId } = req.params;
+
+    const { data, error } =
+      await expenseGroupService.deleteExpenseFromExpenseGroupById(
+        expenseGroupId,
+        expenseId,
+      );
 
     if (error) return next(error);
 

@@ -12,15 +12,15 @@ paths:
     get:
       tags:
         - expense-groups
-      summary: Gets one expense group associated with user ID
+      summary: Gets an expense group associated with user ID
     patch:
       tags:
         - expense-groups
-      summary: Updates one expense group associated with user ID
+      summary: Updates an expense group associated with user ID
     delete:
       tags:
         - expense-groups
-      summary: Deletes one expense group associated with user ID
+      summary: Deletes an expense group associated with user ID
   /expense-groups/{expenseGroupId}/expenses:
     get:
       tags:

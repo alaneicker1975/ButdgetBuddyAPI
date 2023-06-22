@@ -1,6 +1,7 @@
 import { pool } from '../database';
 import { getUserAccountId } from '../helpers/auth';
 import { createError } from '../helpers/error';
+import * as expenseService from '../services/expenses';
 
 export const getExpenseGroupsByUserAccountId = async (token) => {
   const userAccountId = getUserAccountId(token);
@@ -81,6 +82,13 @@ export const createExpenseGroup = async (
     );
 
     return { data: { createdId: expense.expense_group_id } };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const updateExpenseGroupById = (expenseGroupId) => {
+  try {
   } catch (error) {
     return { error };
   }
@@ -175,6 +183,42 @@ export const addExpenseToExpenseGroup = async ({
     );
 
     return { data: { createdId: expenseId } };
+  } catch (error) {
+    return { error };
+  }
+};
+
+const updateExpenseGroupExpenseById = async (
+  body,
+  expenseGroupId,
+  expenseId,
+) => {
+  try {
+    const { name, balance, dueDate, isPaid, note } = body;
+
+    // 1. Update
+    //      balance, dueDate, isPaid, note
+    //        in the expense_group_expense table
+
+    // 2. Updates the
+    //      name
+    //        in the expense table
+
+    // 3. return updated_id
+  } catch (error) {
+    return { error };
+  }
+};
+
+const deleteExpenseFromExpenseGroupById = async (
+  body,
+  expenseGroupId,
+  expenseId,
+) => {
+  try {
+    // 1. Delete the expense record from the expense_group_expense table
+    //      Expense name will persist in the expense table.
+    // 2. Return deleted_id
   } catch (error) {
     return { error };
   }

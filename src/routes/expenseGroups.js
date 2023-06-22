@@ -44,4 +44,16 @@ router.post(
   expenseGroup.addExpenseToExpenseGroup,
 );
 
+// Updates an expense associated with an expense group
+router.patch(
+  '/:expenseGroupId/expenses/:expenseId',
+  expenseGroup.updateExpenseGroupExpenseById,
+);
+
+// Deletes an expense associated with an expense group
+router.delete(
+  '/:expenseGroupId/expenses/:expenseId',
+  expenseGroup.deleteExpenseFromExpenseGroupById,
+);
+
 export default router;
