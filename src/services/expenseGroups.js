@@ -188,7 +188,7 @@ export const addExpenseToExpenseGroup = async ({
   }
 };
 
-const updateExpenseGroupExpenseById = async (
+export const updateExpenseGroupExpenseById = async (
   body,
   expenseGroupId,
   expenseId,
@@ -196,21 +196,34 @@ const updateExpenseGroupExpenseById = async (
   try {
     const { name, balance, dueDate, isPaid, note } = body;
 
-    // 1. Update
-    //      balance, dueDate, isPaid, note
-    //        in the expense_group_expense table
+    const {
+      rows: [expenseGroupExpense],
+    } = await pool.query(
+      `UPDATE expense_group_expense
+       SET balance = $1,
+           dueDate = $2,
+           isPaid = $3,
+           note = $4
+       WHERE expense_group_id = $5
+       AND expense_id = $6
+       RETURNING expense_id`,
+      [name, balance, dueDate, isPaid, note, expenseGroupId, expenseId],
+    );
 
-    // 2. Updates the
-    //      name
-    //        in the expense table
+    await pool.query(
+      `UPDATE expense
+       SET name = $1
+       WHERE expense_id = $2`,
+      [name, expenseId],
+    );
 
-    // 3. return updated_id
+    return { data: { updatedId: expenseGroupExpense.expense_id } };
   } catch (error) {
     return { error };
   }
 };
 
-const deleteExpenseFromExpenseGroupById = async (
+export const deleteExpenseFromExpenseGroupById = async (
   body,
   expenseGroupId,
   expenseId,
@@ -218,7 +231,7 @@ const deleteExpenseFromExpenseGroupById = async (
   try {
     // 1. Delete the expense record from the expense_group_expense table
     //      Expense name will persist in the expense table.
-    // 2. Return deleted_id
+    // 2. Return deletedId
   } catch (error) {
     return { error };
   }

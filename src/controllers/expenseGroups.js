@@ -109,10 +109,14 @@ export const addExpenseToExpenseGroup = async (req, res, next) => {
 
 export const updateExpenseGroupExpenseById = async (req, res, next) => {
   try {
-    const { expenseGroupId, expenseId } = req.params;
+    const {
+      body,
+      params: { expenseGroupId, expenseId },
+    } = req;
 
     const { data, error } =
       await expenseGroupService.updateExpenseGroupExpenseById(
+        body,
         expenseGroupId,
         expenseId,
       );
