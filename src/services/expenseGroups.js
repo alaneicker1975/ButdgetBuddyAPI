@@ -22,7 +22,6 @@ export const getExpenseGroupsByUserAccountId = async (token) => {
 
 export const getExpensesByExpenseGroupId = async (expenseGroupId) => {
   try {
-    // Joins data from expense_group_expense and expense tables
     const { rows } = await pool.query(
       `SELECT
         expense.*,
