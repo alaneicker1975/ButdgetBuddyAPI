@@ -12,6 +12,10 @@ export const authenticateUser = async (body) => {
       [body.username],
     );
 
+    if (rows.length === 0) {
+      throw createError(401);
+    }
+
     const { password, ...user } = rows[0];
 
     const isValidUser = await bcrypt.compare(body.password, password);
