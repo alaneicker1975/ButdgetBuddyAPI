@@ -1,7 +1,6 @@
 import { pool } from '../database';
 import { getUserAccountId } from '../helpers/auth';
 import { createError } from '../helpers/error';
-import * as expenseService from '../services/expenses';
 
 export const getExpenseGroupsByUserAccountId = async (token) => {
   const userAccountId = getUserAccountId(token);
