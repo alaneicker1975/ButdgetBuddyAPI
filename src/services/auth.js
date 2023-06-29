@@ -5,18 +5,20 @@ import { createError } from '../helpers/error';
 
 export const authenticateUser = async (body) => {
   try {
-    const { rows } = await pool.query(
+    const {
+      rows: [foundUser],
+    } = await pool.query(
       `SELECT * 
        FROM user_account
        WHERE username = $1`,
       [body.username],
     );
 
-    if (rows.length === 0) {
+    if (!foundUser) {
       throw createError(401);
     }
 
-    const { password, ...user } = rows[0];
+    const { password, ...user } = foundUser;
 
     const isValidUser = await bcrypt.compare(body.password, password);
 
